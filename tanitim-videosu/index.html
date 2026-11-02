@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920, initial-scale=1">
+<title>AtölyeLink Tanıtım</title>
+<!--
+  AtölyeLink — giyim mağazası stok takibi + atölyeye sipariş bildirimi tanıtım videosu.
+  Tamamen deterministik: render(t) fonksiyonu t saniyesindeki kareyi çizer.
+  Tarayıcıda açınca otomatik oynar; render.js ile MP4'e dönüştürülür.
+-->
+<style>
+  :root{
+    --bg:#0E1424; --bg2:#151D33; --card:#1B2540; --card2:#222E4F; --line:#2C3A60;
+    --ink:#F4F1EA; --muted:#93A0C0; --coral:#FF6B4A; --mint:#3DDBA3; --amber:#FFC24B; --sky:#6FA8FF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);font-family:Inter,"DejaVu Sans",sans-serif;color:var(--ink)}
+  #stage{position:relative;width:1920px;height:1080px;overflow:hidden;
+    background:radial-gradient(1200px 800px at 80% 10%,#1d2a4f 0%,transparent 60%),radial-gradient(900px 700px at 0% 100%,#2a1a2a 0%,transparent 60%),var(--bg)}
+  .scene{position:absolute;inset:0;opacity:0}
+  .abs{position:absolute}
+  .mono{font-family:"JetBrains Mono",monospace}
+  .cap{position:absolute;left:120px;top:84px}
+  .cap .num{font:600 22px "JetBrains Mono",monospace;color:var(--coral);letter-spacing:4px}
+  .cap h2{font:800 64px "Inter Display",Inter,sans-serif;letter-spacing:-1.5px;margin-top:10px}
+  .cap p{font:400 28px Inter;color:var(--muted);margin-top:12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+  .pill{display:inline-block;padding:6px 14px;border-radius:999px;font:600 18px Inter}
+  .grain{position:absolute;inset:0;pointer-events:none;opacity:.05;
+    background-image:repeating-linear-gradient(0deg,#fff 0 1px,transparent 1px 3px)}
+
+  /* Logo */
+  .logo-mark{width:120px;height:120px;border-radius:32px;background:linear-gradient(135deg,var(--coral),#FF9A5A);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(255,107,74,.4)}
+  .brand{font:800 120px "Inter Display",Inter;letter-spacing:-4px}
+  .brand span{color:var(--coral)}
+
+  /* Dashboard */
+  .dash{left:120px;top:300px;width:1680px;height:640px;display:flex;overflow:hidden}
+  .side{width:280px;background:var(--bg2);border-right:1px solid var(--line);padding:34px 26px;border-radius:22px 0 0 22px}
+  .side .it{font:500 22px Inter;color:var(--muted);padding:14px 18px;border-radius:12px;margin-bottom:6px}
+  .side .it.on{background:var(--card2);color:var(--ink)}
+  .main{flex:1;padding:34px 40px}
+  .kpis{display:flex;gap:24px}
+  .kpi{flex:1;background:var(--card2);border-radius:18px;padding:22px 26px}
+  .kpi .l{font:500 18px Inter;color:var(--muted)}
+  .kpi .v{font:800 52px "Inter Display";margin-top:6px}
+  table{width:100%;border-collapse:collapse;margin-top:28px}
+  th{font:600 16px Inter;color:var(--muted);text-align:left;padding:10px 12px;letter-spacing:1px;text-transform:uppercase}
+  td{font:500 21px Inter;padding:15px 12px;border-top:1px solid var(--line)}
+  td.sz{font:600 20px "JetBrains Mono";text-align:center}
+  .dot{display:inline-block;width:16px;height:16px;border-radius:50%;margin-right:12px;vertical-align:-2px;border:2px solid rgba(255,255,255,.25)}
+  .bar{height:10px;border-radius:6px;background:var(--line);width:180px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:6px}
+
+  .toast{background:#2a1f2e;border:1px solid var(--coral);border-radius:16px;padding:18px 24px;font:600 22px Inter;display:flex;align-items:center;gap:14px}
+
+  /* Order */
+  .order{left:120px;top:300px;width:900px;height:700px;padding:40px 46px}
+  .row{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px dashed var(--line);font:500 24px Inter}
+  .row .k{color:var(--muted)}
+  .btn{display:inline-flex;align-items:center;gap:14px;background:var(--coral);color:#fff;font:700 26px Inter;padding:20px 34px;border-radius:16px}
+
+  /* Workshop */
+  .ticket{left:640px;top:270px;width:1160px;height:730px;padding:40px 46px}
+  .steps{display:flex;gap:0;align-items:center;margin-top:30px}
+  .step{display:flex;flex-direction:column;align-items:center;width:200px}
+  .step .c{width:58px;height:58px;border-radius:50%;border:3px solid var(--line);display:flex;align-items:center;justify-content:center;font:800 24px Inter;color:var(--muted);background:var(--bg2)}
+  .step .t{font:600 19px Inter;color:var(--muted);margin-top:12px}
+  .conn{height:4px;width:60px;background:var(--line);border-radius:2px;margin-top:-34px;overflow:hidden}
+  .conn i{display:block;height:100%;width:0;background:var(--mint)}
+
+  .feat{width:500px;height:400px;padding:44px}
+  .feat .ic{width:86px;height:86px;border-radius:22px;display:flex;align-items:center;justify-content:center}
+  .feat h3{font:800 40px "Inter Display";margin-top:34px;letter-spacing:-.5px}
+  .feat p{font:400 24px Inter;color:var(--muted);margin-top:14px;line-height:1.4}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- ============ S1: INTRO ============ -->
+  <section class="scene" id="s1">
+    <div class="abs" id="s1-ring" style="left:960px;top:540px;width:900px;height:900px;margin:-450px 0 0 -450px;border-radius:50%;border:2px solid rgba(255,107,74,.25)"></div>
+    <div class="abs" id="s1-ring2" style="left:960px;top:540px;width:1300px;height:1300px;margin:-650px 0 0 -650px;border-radius:50%;border:2px solid rgba(111,168,255,.15)"></div>
+    <div class="abs" style="left:0;right:0;top:300px;display:flex;flex-direction:column;align-items:center">
+      <div class="logo-mark" id="s1-mark">
+        <svg width="70" height="70" viewBox="0 0 70 70"><path d="M22 10 L10 20 L16 30 L22 26 L22 60 L48 60 L48 26 L54 30 L60 20 L48 10 Q35 20 22 10Z" fill="#fff"/><circle cx="35" cy="40" r="6" fill="#FF6B4A"/></svg>
+      </div>
+      <div class="brand" id="s1-brand" style="margin-top:40px">Atölye<span>Link</span></div>
+      <div id="s1-tag" style="font:400 36px Inter;color:var(--muted);margin-top:14px">Giyim mağazanız için stok takibi ve atölye bağlantısı</div>
+    </div>
+  </section>
+
+  <!-- ============ S2: PROBLEM ============ -->
+  <section class="scene" id="s2">
+    <div class="abs" style="left:0;right:0;top:190px;text-align:center;font:800 76px 'Inter Display';letter-spacing:-2px" id="s2-title">Hâlâ böyle mi çalışıyorsunuz?</div>
+    <div class="abs" style="left:160px;top:400px;display:flex;gap:40px" id="s2-cards">
+      <div class="card p" style="width:500px;height:300px;padding:40px">
+        <div style="font-size:64px">📒</div>
+        <div style="font:700 34px Inter;margin-top:20px">Defterde stok</div>
+        <div style="font:400 24px Inter;color:var(--muted);margin-top:10px">“Beyaz M kaldı mı?” — kimse emin değil.</div>
+        <div class="x abs" style="right:34px;top:34px"></div>
+      </div>
+      <div class="card p" style="width:500px;height:300px;padding:40px">
+        <div style="font-size:64px">💬</div>
+        <div style="font:700 34px Inter;margin-top:20px">Mesajla sipariş</div>
+        <div style="font:400 24px Inter;color:var(--muted);margin-top:10px">Logo dosyası sohbette kayboldu.</div>
+        <div class="x abs" style="right:34px;top:34px"></div>
+      </div>
+      <div class="card p" style="width:500px;height:300px;padding:40px">
+        <div style="font-size:64px">🧵</div>
+        <div style="font:700 34px Inter;margin-top:20px">Yanlış baskı</div>
+        <div style="font:400 24px Inter;color:var(--muted);margin-top:10px">Logo sırta değil göğse olacaktı…</div>
+        <div class="x abs" style="right:34px;top:34px"></div>
+      </div>
+    </div>
+    <div class="abs" id="s2-sol" style="left:0;right:0;top:780px;text-align:center;font:700 44px Inter">Artık hepsi <span style="color:var(--coral)">tek ekranda.</span></div>
+  </section>
+
+  <!-- ============ S3: STOK PANELİ ============ -->
+  <section class="scene" id="s3">
+    <div class="cap" id="s3-cap"><div class="num">01 — STOK</div><h2>Anlık stok takibi</h2><p>Her ürün, her renk, her beden — canlı.</p></div>
+    <div class="card dash abs" id="s3-dash">
+      <div class="side">
+        <div style="font:800 28px 'Inter Display';margin-bottom:34px">Atölye<span style="color:var(--coral)">Link</span></div>
+        <div class="it">Genel Bakış</div>
+        <div class="it on">Stok</div>
+        <div class="it">Siparişler</div>
+        <div class="it">Atölye</div>
+        <div class="it">Raporlar</div>
+      </div>
+      <div class="main">
+        <div class="kpis">
+          <div class="kpi"><div class="l">Toplam ürün</div><div class="v" id="k1">0</div></div>
+          <div class="kpi"><div class="l">Bugünkü sipariş</div><div class="v" id="k2">0</div></div>
+          <div class="kpi"><div class="l">Atölyede iş</div><div class="v" id="k3">0</div></div>
+          <div class="kpi" id="k4box"><div class="l">Kritik stok</div><div class="v" id="k4" style="color:var(--coral)">0</div></div>
+        </div>
+        <table>
+          <thead><tr><th>Ürün</th><th style="text-align:center">S</th><th style="text-align:center">M</th><th style="text-align:center">L</th><th style="text-align:center">XL</th><th>Doluluk</th></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="toast abs" id="s3-toast" style="right:150px;top:150px">⚠️ Siyah Hoodie XL kritik seviyede — tedarik uyarısı oluşturuldu</div>
+  </section>
+
+  <!-- ============ S4: SİPARİŞ ============ -->
+  <section class="scene" id="s4">
+    <div class="cap" id="s4-cap"><div class="num">02 — SİPARİŞ</div><h2>Sipariş + baskı detayı</h2><p>Logo, desen, konum, ölçü — hepsi siparişin içinde.</p></div>
+    <div class="card order abs" id="s4-order">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font:800 40px 'Inter Display'">Sipariş <span class="mono" style="color:var(--coral)">#2481</span></div>
+        <div class="pill" style="background:rgba(61,219,163,.15);color:var(--mint)">Yeni</div>
+      </div>
+      <div style="margin-top:24px">
+        <div class="row o"><span class="k">Müşteri</span><span>Kuzey Kafe</span></div>
+        <div class="row o"><span class="k">Ürün</span><span>Beyaz Oversize Tişört</span></div>
+        <div class="row o"><span class="k">Beden / Adet</span><span class="mono">M × 8 · L × 4</span></div>
+        <div class="row o"><span class="k">Baskı</span><span>Logo · Göğüs sol · 9×9 cm</span></div>
+        <div class="row o"><span class="k">Teknik</span><span>DTF baskı · Lacivert</span></div>
+        <div class="row o"><span class="k">Teslim</span><span>08 Kasım</span></div>
+      </div>
+      <div style="margin-top:34px;display:flex;align-items:center;gap:20px">
+        <div class="btn" id="s4-btn">Atölyeye Gönder <span style="font-size:30px">→</span></div>
+        <div style="font:500 20px Inter;color:var(--muted)">📎 kuzey_logo.png</div>
+      </div>
+    </div>
+    <!-- Tişört mockup -->
+    <div class="abs" id="s4-shirt" style="left:1080px;top:270px;width:720px;height:620px">
+      <svg width="720" height="620" viewBox="0 0 720 620">
+        <defs><linearGradient id="tg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FAFAF7"/><stop offset="1" stop-color="#E4E2DA"/></linearGradient></defs>
+        <path d="M250 40 L120 100 L50 230 L150 280 L190 220 L190 590 L530 590 L530 220 L570 280 L670 230 L600 100 L470 40 Q360 110 250 40 Z" fill="url(#tg)" stroke="#cfccc2" stroke-width="3"/>
+        <path d="M250 40 Q360 110 470 40" fill="none" stroke="#cfccc2" stroke-width="6"/>
+        <rect id="guide" x="400" y="170" width="100" height="100" rx="6" fill="none" stroke="#FF6B4A" stroke-width="3" stroke-dasharray="10 8"/>
+        <g id="plogo" transform="translate(450 220)">
+          <circle r="44" fill="#1E2C5A"/>
+          <path d="M-20 14 L0 -22 L20 14 Z" fill="#fff"/>
+          <path d="M-8 14 L4 -6 L16 14 Z" fill="#3DDBA3"/>
+        </g>
+        <g id="dim" font-family="JetBrains Mono" font-size="20" fill="#FF6B4A">
+          <line x1="400" y1="290" x2="500" y2="290" stroke="#FF6B4A" stroke-width="2"/>
+          <text x="450" y="318" text-anchor="middle">9 cm</text>
+        </g>
+      </svg>
+    </div>
+    <div class="card abs" id="s4-stock" style="left:1180px;top:880px;width:520px;padding:22px 28px;display:flex;justify-content:space-between;align-items:center">
+      <span style="font:500 22px Inter;color:var(--muted)">Stok · Beyaz Tişört M</span>
+      <span class="mono" style="font:700 30px 'JetBrains Mono'" id="s4-num">86</span>
+    </div>
+    <!-- imleç -->
+    <div class="abs" id="cursor" style="left:0;top:0;width:40px;height:40px">
+      <svg width="40" height="40" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15 L12 22 L15 21 L12 14 L19 14 Z" fill="#fff" stroke="#000" stroke-width="1.2"/></svg>
+    </div>
+    <div class="abs" id="ripple" style="width:120px;height:120px;border-radius:50%;border:4px solid #fff;opacity:0"></div>
+  </section>
+
+  <!-- ============ S5: ATÖLYE ============ -->
+  <section class="scene" id="s5">
+    <div class="cap" id="s5-cap" style="width:480px"><div class="num">03 — ATÖLYE</div><h2>Atölyeye anında bildirim</h2><p>Atölye, iş emrini tüm detaylarıyla saniyesinde görür.</p></div>
+    <div class="abs" id="s5-phone" style="left:150px;top:520px;width:380px;height:460px;border-radius:44px;background:#0a0f1c;border:3px solid var(--line);padding:24px">
+      <div style="font:600 18px Inter;color:var(--muted);text-align:center">Atölye · Usta Paneli</div>
+      <div class="card" id="s5-notif" style="margin-top:24px;padding:20px;border-radius:18px;background:var(--card2)">
+        <div style="font:700 19px Inter">🔔 Yeni iş emri</div>
+        <div style="font:400 18px Inter;color:var(--muted);margin-top:6px">#2481 · 12 adet tişört · DTF</div>
+      </div>
+      <div class="card" id="s5-notif2" style="margin-top:14px;padding:20px;border-radius:18px;background:var(--card2)">
+        <div style="font:700 19px Inter">📎 Baskı dosyası eklendi</div>
+        <div style="font:400 18px Inter;color:var(--muted);margin-top:6px">kuzey_logo.png · 300 dpi</div>
+      </div>
+    </div>
+    <div class="card ticket abs" id="s5-ticket">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font:800 40px 'Inter Display'">İş Emri <span class="mono" style="color:var(--coral)">#2481</span></div>
+        <div class="pill" style="background:rgba(255,194,75,.15);color:var(--amber)">Öncelik: Normal · 08 Kasım</div>
+      </div>
+      <div style="display:flex;gap:36px;margin-top:30px">
+        <div style="width:300px;height:300px;border-radius:18px;background:#F4F1EA;display:flex;align-items:center;justify-content:center;position:relative" id="s5-art">
+          <svg width="200" height="200" viewBox="-50 -50 100 100"><circle r="44" fill="#1E2C5A"/><path d="M-20 14 L0 -22 L20 14 Z" fill="#fff"/><path d="M-8 14 L4 -6 L16 14 Z" fill="#3DDBA3"/></svg>
+          <div class="mono" style="position:absolute;bottom:12px;left:0;right:0;text-align:center;font:500 16px 'JetBrains Mono';color:#555">kuzey_logo.png</div>
+        </div>
+        <div style="flex:1">
+          <div class="row d"><span class="k">Ürün</span><span>Beyaz Oversize Tişört</span></div>
+          <div class="row d"><span class="k">Adet</span><span class="mono">M×8 · L×4 = 12</span></div>
+          <div class="row d"><span class="k">Konum</span><span>Göğüs sol · 9×9 cm</span></div>
+          <div class="row d"><span class="k">Teknik / Renk</span><span>DTF · Lacivert #1E2C5A</span></div>
+          <div class="row d" style="border:none"><span class="k">Not</span><span style="color:var(--amber)">Yaka dikişinden 8 cm aşağı</span></div>
+        </div>
+      </div>
+      <div class="steps" id="steps">
+        <div class="step"><div class="c">1</div><div class="t">Alındı</div></div><div class="conn"><i></i></div>
+        <div class="step"><div class="c">2</div><div class="t">Baskıda</div></div><div class="conn"><i></i></div>
+        <div class="step"><div class="c">3</div><div class="t">Kalite kontrol</div></div><div class="conn"><i></i></div>
+        <div class="step"><div class="c">4</div><div class="t">Hazır</div></div><div class="conn"><i></i></div>
+        <div class="step"><div class="c">5</div><div class="t">Mağazada</div></div>
+      </div>
+    </div>
+    <!-- Uçan paket -->
+    <div class="abs" id="s5-fly" style="width:120px;height:80px;border-radius:16px;background:var(--coral);display:flex;align-items:center;justify-content:center;font:800 22px 'JetBrains Mono';box-shadow:0 20px 50px rgba(255,107,74,.5)">#2481</div>
+  </section>
+
+  <!-- ============ S6: FAYDALAR ============ -->
+  <section class="scene" id="s6">
+    <div class="abs" style="left:0;right:0;top:150px;text-align:center;font:800 72px 'Inter Display';letter-spacing:-2px" id="s6-title">Mağaza ve atölye, <span style="color:var(--coral)">tek akışta.</span></div>
+    <div class="abs" style="left:160px;top:380px;display:flex;gap:40px">
+      <div class="card feat f"><div class="ic" style="background:rgba(111,168,255,.15)"><span style="font-size:46px">📦</span></div><h3>Gerçek zamanlı stok</h3><p>Sipariş geldiği an stok düşer, kritik seviyede uyarı alırsınız.</p></div>
+      <div class="card feat f"><div class="ic" style="background:rgba(255,107,74,.15)"><span style="font-size:46px">🎨</span></div><h3>Eksiksiz baskı detayı</h3><p>Logo, desen, konum ve ölçü siparişe bağlı — yanlış baskıya son.</p></div>
+      <div class="card feat f"><div class="ic" style="background:rgba(61,219,163,.15)"><span style="font-size:46px">⚡</span></div><h3>Tek tıkla atölye</h3><p>İş emri atölyeye anında düşer, durumunu canlı takip edersiniz.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ S7: OUTRO ============ -->
+  <section class="scene" id="s7">
+    <div class="abs" style="left:0;right:0;top:310px;display:flex;flex-direction:column;align-items:center">
+      <div class="logo-mark" id="s7-mark">
+        <svg width="70" height="70" viewBox="0 0 70 70"><path d="M22 10 L10 20 L16 30 L22 26 L22 60 L48 60 L48 26 L54 30 L60 20 L48 10 Q35 20 22 10Z" fill="#fff"/><circle cx="35" cy="40" r="6" fill="#FF6B4A"/></svg>
+      </div>
+      <div class="brand" id="s7-brand" style="margin-top:36px">Atölye<span>Link</span></div>
+      <div id="s7-tag" style="font:600 40px Inter;margin-top:16px">Stoktan atölyeye, <span style="color:var(--coral)">tek tıkla.</span></div>
+      <div id="s7-cta" class="pill" style="margin-top:44px;padding:18px 40px;font:600 28px Inter;background:var(--ink);color:var(--bg)">Ücretsiz demo için bize ulaşın</div>
+    </div>
+  </section>
+
+  <div class="grain"></div>
+</div>
+
+<script>
+// ---------- yardımcılar ----------
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>clamp((t-a)/(b-a));
+const eo=x=>1-Math.pow(1-x,3);              // easeOutCubic
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const back=x=>{const c=1.7;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const $=id=>document.getElementById(id);
+const css=(el,o)=>{for(const k in o) el.style[k]=o[k]};
+function enter(el,t,a,dur=.7,dy=40){const x=eo(P(t,a,a+dur));css(el,{opacity:x,transform:`translateY(${(1-x)*dy}px)`});return x}
+
+const DURATION=46;
+const SC={s1:[0,5.6],s2:[5.4,11.2],s3:[11,20.2],s4:[20,29],s5:[28.8,38.4],s6:[38.2,42.8],s7:[42.6,46]};
+const FADE=.5;
+function sceneAlpha(t,[a,b]){ if(t<a||t>b) return 0; return Math.min(P(t,a,a+FADE), 1-P(t,b-FADE,b)) }
+
+// ---------- tablo verisi ----------
+const products=[
+  ["Beyaz Oversize Tişört","#F4F1EA",[64,86,72,40]],
+  ["Siyah Hoodie","#111",[22,31,18,2]],
+  ["Lacivert Polo","#1E2C5A",[35,48,41,27]],
+  ["Gri Sweatshirt","#8a8f9c",[19,26,30,12]],
+  ["Haki Kargo Pantolon","#6b6b3c",[14,20,16,9]],
+];
+const tb=$("tbody");
+products.forEach((p,i)=>{
+  const tr=document.createElement("tr");tr.id="tr"+i;
+  tr.innerHTML=`<td><span class="dot" style="background:${p[1]}"></span>${p[0]}</td>`+
+    p[2].map((v,j)=>`<td class="sz" id="c${i}_${j}">0</td>`).join("")+
+    `<td><div class="bar"><i id="b${i}"></i></div></td>`;
+  tb.appendChild(tr);
+});
+
+// ---------- render ----------
+function render(t){
+  for(const id in SC) $(id).style.opacity=sceneAlpha(t,SC[id]);
+
+  // S1
+  { const a=t;
+    const m=back(P(a,.3,1.2)); css($("s1-mark"),{transform:`scale(${m}) rotate(${(1-m)*-30}deg)`,opacity:P(a,.3,.6)});
+    enter($("s1-brand"),a,1.0,.8,50); enter($("s1-tag"),a,1.6,.8,30);
+    const r=eo(P(a,0,3));css($("s1-ring"),{transform:`scale(${.6+r*.5})`,opacity:.8*(1-P(a,3,5.5))+.2});
+    css($("s1-ring2"),{transform:`scale(${.7+r*.4}) rotate(${a*6}deg)`});
+    const z=1+P(a,0,5.6)*.04; $("s1").style.transform=`scale(${z})`;
+  }
+  // S2
+  { const a=t-SC.s2[0];
+    enter($("s2-title"),a,.2,.7,40);
+    document.querySelectorAll("#s2 .p").forEach((c,i)=>{
+      const x=enter(c,a,.8+i*.35,.7,60);
+      const xx=c.querySelector(".x"); const s=back(P(a,2.6+i*.3,3.0+i*.3));
+      xx.innerHTML='<div style="width:56px;height:56px;border-radius:50%;background:#FF4A4A;display:flex;align-items:center;justify-content:center;font:800 32px Inter;color:#fff">✕</div>';
+      css(xx,{transform:`scale(${s})`,opacity:P(a,2.6+i*.3,2.7+i*.3)});
+      c.style.filter=`grayscale(${P(a,2.8+i*.3,3.3+i*.3)*.8})`;
+    });
+    enter($("s2-sol"),a,4.0,.7,30);
+  }
+  // S3
+  { const a=t-SC.s3[0];
+    enter($("s3-cap"),a,.1,.7,30);
+    const d=eo(P(a,.4,1.3)); css($("s3-dash"),{opacity:d,transform:`translateY(${(1-d)*80}px) scale(${.97+.03*d})`});
+    const n=eo(P(a,1.0,2.8));
+    $("k1").textContent=Math.round(1248*n).toLocaleString("tr-TR");
+    $("k2").textContent=Math.round(37*n);
+    $("k3").textContent=Math.round(14*n);
+    const crit=a>4.6?5:4; $("k4").textContent=Math.round(crit*n);
+    products.forEach((p,i)=>{
+      const r=eo(P(a,1.2+i*.15,2.4+i*.15));
+      $("tr"+i).style.opacity=r; $("tr"+i).style.transform=`translateX(${(1-r)*-30}px)`;
+      let total=0;
+      p[2].forEach((v,j)=>{
+        let val=v;
+        if(i===1&&j===3) val = a>4.6 ? 1 : 2;           // canlı satış: Siyah Hoodie XL 2→1
+        if(i===0&&j===1) val = a>6.2 ? 85 : 86;
+        const cell=$(`c${i}_${j}`); cell.textContent=Math.round(val*r);
+        const low=val<=5&&a>3.2;
+        const pulse=low?(.5+.5*Math.sin((a-3.2)*8)):0;
+        cell.style.color=low?`rgb(255,${Math.round(107-50*pulse)},74)`:"var(--ink)";
+        cell.style.background=low?`rgba(255,107,74,${.12+.12*pulse})`:"transparent";
+        cell.style.borderRadius="10px";
+        total+=val;
+      });
+      const pct=total/320; const b=$("b"+i);
+      b.style.width=(pct*100*eo(P(a,1.6+i*.15,3.0+i*.15)))+"%";
+      b.style.background=pct<.3?"var(--coral)":pct<.55?"var(--amber)":"var(--mint)";
+    });
+    const tt=back(P(a,4.8,5.4)), to=1-P(a,8.4,8.9);
+    css($("s3-toast"),{opacity:P(a,4.8,5.0)*to,transform:`translateY(${(1-tt)*-30}px)`});
+    const z=1+P(a,0,9)*.02; $("s3-dash").style.transform+=` scale(${z})`;
+  }
+  // S4
+  { const a=t-SC.s4[0];
+    enter($("s4-cap"),a,.1,.7,30);
+    const o=eo(P(a,.4,1.2)); css($("s4-order"),{opacity:o,transform:`translateX(${(1-o)*-80}px)`});
+    document.querySelectorAll("#s4 .row.o").forEach((r,i)=>{const x=eo(P(a,.9+i*.22,1.4+i*.22));css(r,{opacity:x,transform:`translateX(${(1-x)*30}px)`})});
+    const sh=eo(P(a,1.0,1.9)); css($("s4-shirt"),{opacity:sh,transform:`translateY(${(1-sh)*60}px)`});
+    // logo konumuna oturuyor
+    const g=P(a,2.6,3.3), gl=back(g);
+    $("guide").style.opacity=P(a,2.0,2.4)*(1-.6*P(a,3.3,3.8));
+    const ly=lerp(-120,220,eo(g)), sc=lerp(2.2,1,gl);
+    $("plogo").setAttribute("transform",`translate(450 ${ly}) scale(${sc})`);
+    $("plogo").style.opacity=P(a,2.6,2.8);
+    $("dim").style.opacity=P(a,3.4,3.8);
+    // stok düşüşü
+    const so=eo(P(a,4.0,4.6)); css($("s4-stock"),{opacity:so,transform:`translateY(${(1-so)*30}px)`});
+    const dn=eio(P(a,4.6,5.6)); $("s4-num").textContent=Math.round(lerp(85,77,dn));
+    $("s4-num").style.color=dn>0&&dn<1?"var(--coral)":dn>=1?"var(--mint)":"var(--ink)";
+    // imleç ve tıklama
+    const cx0=1500,cy0=1000, bx=380, by=810;
+    const cm=eio(P(a,5.6,7.0));
+    const cx=lerp(cx0,bx,cm), cy=lerp(cy0,by,cm)-Math.sin(cm*Math.PI)*120;
+    css($("cursor"),{transform:`translate(${cx}px,${cy}px)`,opacity:P(a,5.4,5.7)});
+    const press=P(a,7.1,7.25)-P(a,7.3,7.5);
+    $("s4-btn").style.transform=`scale(${1-.06*press})`;
+    $("s4-btn").style.boxShadow=`0 0 0 ${P(a,7.1,7.8)*30}px rgba(255,107,74,${.35*(1-P(a,7.1,7.8))})`;
+    const rp=P(a,7.15,7.8); css($("ripple"),{left:(bx-60+10)+"px",top:(by-60+10)+"px",opacity:(rp>0?1-rp:0),transform:`scale(${.3+rp})`});
+    // çıkış: kart küçülür
+    const out=eio(P(a,7.8,8.8));
+    if(out>0){ $("s4-order").style.transform=`translateX(${out*200}px) scale(${1-out*.3})`; $("s4-order").style.opacity=o*(1-out);}
+  }
+  // S5
+  { const a=t-SC.s5[0];
+    enter($("s5-cap"),a,.1,.7,30);
+    // uçan paket
+    const f=P(a,.2,1.6), fe=eio(f);
+    const fx=lerp(500,1150,fe), fy=lerp(620,560,fe)-Math.sin(fe*Math.PI)*260;
+    css($("s5-fly"),{transform:`translate(${fx}px,${fy}px) rotate(${(1-fe)*-12+fe*8}deg) scale(${1-fe*.4})`,opacity:(f>0&&f<1)?1:0});
+    const tk=back(P(a,1.4,2.2)); css($("s5-ticket"),{opacity:P(a,1.4,1.7),transform:`scale(${.85+.15*tk})`});
+    document.querySelectorAll("#s5 .row.d").forEach((r,i)=>{const x=eo(P(a,2.0+i*.18,2.5+i*.18));css(r,{opacity:x,transform:`translateX(${(1-x)*30}px)`})});
+    const art=eo(P(a,1.9,2.6)); css($("s5-art"),{opacity:art,transform:`rotate(${(1-art)*-6}deg) scale(${.9+.1*art})`});
+    // telefon bildirimleri
+    const ph=eo(P(a,1.0,1.7)); css($("s5-phone"),{opacity:ph,transform:`translateY(${(1-ph)*80}px)`});
+    const n1=back(P(a,1.8,2.3)); css($("s5-notif"),{opacity:P(a,1.8,2.0),transform:`translateY(${(1-n1)*-20}px) scale(${.9+.1*n1})`});
+    const n2=back(P(a,2.6,3.1)); css($("s5-notif2"),{opacity:P(a,2.6,2.8),transform:`translateY(${(1-n2)*-20}px) scale(${.9+.1*n2})`});
+    // durum adımları
+    const steps=document.querySelectorAll("#steps .step"), conns=document.querySelectorAll("#steps .conn i");
+    const t0=3.8, gap=1.15;
+    steps.forEach((s,i)=>{
+      const on=P(a,t0+i*gap,t0+i*gap+.3), c=s.querySelector(".c"), tx=s.querySelector(".t");
+      const done=a>t0+(i+1)*gap; const sc=1+.18*Math.sin(Math.PI*on);
+      c.style.transform=`scale(${sc})`;
+      c.style.borderColor=on>0?(i===4?"var(--coral)":"var(--mint)"):"var(--line)";
+      c.style.background=on>0?(done||i===4?(i===4?"var(--coral)":"var(--mint)"):"rgba(61,219,163,.15)"):"var(--bg2)";
+      c.style.color=on>0?(done||i===4?"#0E1424":"var(--mint)"):"var(--muted)";
+      c.textContent=(done||(i===4&&on>=1))?"✓":String(i+1);
+      tx.style.color=on>0?"var(--ink)":"var(--muted)";
+      if(conns[i]) conns[i].style.width=(eio(P(a,t0+i*gap+.3,t0+(i+1)*gap))*100)+"%";
+    });
+  }
+  // S6
+  { const a=t-SC.s6[0];
+    enter($("s6-title"),a,.1,.7,40);
+    document.querySelectorAll("#s6 .f").forEach((c,i)=>{const x=back(P(a,.6+i*.25,1.3+i*.25));css(c,{opacity:P(a,.6+i*.25,.9+i*.25),transform:`translateY(${(1-x)*80}px)`})});
+  }
+  // S7
+  { const a=t-SC.s7[0];
+    const m=back(P(a,.2,1.0)); css($("s7-mark"),{transform:`scale(${m})`,opacity:P(a,.2,.4)});
+    enter($("s7-brand"),a,.6,.7,40); enter($("s7-tag"),a,1.1,.7,30);
+    const c=back(P(a,1.6,2.2)); css($("s7-cta"),{opacity:P(a,1.6,1.8),transform:`scale(${.8+.2*c})`});
+    $("s7").style.opacity = Math.min(+$("s7").style.opacity, 1-P(t,45.4,46));
+  }
+}
+window.render=render; window.DURATION=DURATION;
+render(0);
+
+// Tarayıcıda açıldığında canlı önizleme (render.js ?render ile çağırır)
+if(!location.search.includes("render")){
+  let st=null; const loop=ts=>{ if(st===null) st=ts; render(((ts-st)/1000)%DURATION); requestAnimationFrame(loop)}; requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>
