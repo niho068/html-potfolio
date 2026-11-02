@@ -84,7 +84,7 @@ button{cursor:pointer}
 .st-teslim{color:var(--muted);background:var(--surface-2)}
 .swatch{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid var(--garment-line);vertical-align:-2px;flex:none}
 
-.grid{display:grid;gap:18px}
+.grid{display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
 .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
 .kpi{padding:16px 18px}
 .kpi .v{font:700 30px/1.1 var(--f-display);margin-top:8px;font-variant-numeric:tabular-nums}
@@ -137,7 +137,7 @@ textarea.input{resize:vertical;min-height:72px}
 .drop img{width:44px;height:44px;object-fit:contain;border-radius:6px;background:var(--surface)}
 .section-t{display:flex;align-items:baseline;gap:10px;margin:6px 0 2px}
 .section-t .n{font:600 12px var(--f-mono);color:var(--accent)}
-.stack{display:grid;gap:16px}
+.stack{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
 .notice{border-radius:10px;padding:10px 12px;font-size:13px;font-weight:600}
 .notice.bad{background:var(--bad-soft);color:var(--bad)}
 .notice.ok{background:var(--ok-soft);color:var(--ok)}
@@ -223,6 +223,30 @@ textarea.input{resize:vertical;min-height:72px}
   .mob-nav a .badge{position:absolute;top:4px;left:55%;background:var(--accent);color:var(--accent-ink);font:700 10px var(--f-mono);border-radius:99px;padding:1px 5px}
   .sizes{grid-template-columns:repeat(3,minmax(0,1fr))}
   .pipe{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .kanban{grid-template-columns:minmax(0,1fr);overflow:visible}
+  .topbar .btn{padding:9px 13px}
+  .filters{width:100%}
+  .filters .input{width:100%!important}
+  table.cards,table.cards tbody{display:block}
+  table.cards thead{display:none}
+  table.cards tr{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px 8px;padding:14px 16px;border-bottom:1px solid var(--line)}
+  table.cards tr:last-child{border-bottom:0}
+  table.cards td{display:block;padding:0;border:0;min-width:0;width:auto}
+  table.cards td[data-label]::before{content:attr(data-label);display:block;font:600 10px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  table.cards .c-full{grid-column:1/-1}
+  table.cards .c-3{grid-column:span 3}
+  table.cards .c-2{grid-column:span 2}
+  table.cards .sz{text-align:center}
+  table.cards .sz input{width:100%;background:var(--surface-2)}
+  table.cards .meter{width:100%;margin-top:8px}
+  table.orders tr{grid-template-columns:minmax(0,1fr) auto}
+  table.orders .o-id{grid-column:1;grid-row:1}
+  table.orders .o-st{grid-column:2;grid-row:1;justify-self:end}
+  table.orders td{white-space:normal!important}
+  .drawer .spec{font-size:13.5px}
+  .kpi .v{font-size:26px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -480,7 +504,7 @@ function viewStock(v){
       <div class="seg" id="cats">${Object.entries(cats).map(([k,l])=>`<button type="button" data-cat="${k}" class="${filter.cat===k?"on":""}">${l}</button>`).join("")}</div>
       <label style="display:flex;gap:6px;align-items:center;font-weight:600;font-size:14px"><input type="checkbox" id="lowonly" ${filter.low?"checked":""}> Sadece kritik</label>
     </div></div>
-    <div class="tbl-wrap"><table>
+    <div class="tbl-wrap"><table class="cards">
       <thead><tr><th>Ürün</th><th>Renk</th>${SIZES.map(z=>`<th class="sz">${z}</th>`).join("")}<th>Toplam</th><th>Doluluk</th><th>Fiyat</th></tr></thead>
       <tbody id="stock-body"></tbody>
     </table></div>
@@ -491,10 +515,10 @@ function viewStock(v){
     const q=filter.q.toLocaleLowerCase("tr");
     const list=S.products.filter(p=>(filter.cat==="all"||p.cat===filter.cat)&&(!q||(p.name+" "+p.color).toLocaleLowerCase("tr").includes(q))&&(!filter.low||SIZES.some(z=>p.stock[z]<=Math.ceil(p.min/2))));
     body.innerHTML=list.length?list.map(p=>{const t=stockTotal(p),cap=p.min*5*SIZES.length,pct=Math.min(1,t/cap);
-      return `<tr><td><b>${esc(p.name)}</b></td><td style="white-space:nowrap"><span class="swatch" style="background:${p.hex}"></span> ${esc(p.color)}</td>
-      ${SIZES.map(z=>{const n=p.stock[z];const c=n===0?"zero":n<=Math.ceil(p.min/2)?"low":"";return `<td class="sz ${c}"><input id="st-${p.id}-${z}" type="number" min="0" inputmode="numeric" value="${n}" data-p="${p.id}" data-z="${z}" aria-label="${esc(p.name+" "+p.color+" "+z)}"></td>`}).join("")}
-      <td class="mono"><b>${t}</b></td><td><div class="meter"><i style="width:${pct*100}%;background:${pct<.25?"var(--bad)":pct<.5?"var(--warn)":"var(--ok)"}"></i></div></td><td class="mono">${fmtTL(p.price)}</td></tr>`}).join("")
-      :`<tr><td colspan="10"><div class="empty">Filtreye uyan ürün yok.</div></td></tr>`;
+      return `<tr><td class="c-3"><b>${esc(p.name)}</b></td><td class="c-2" style="white-space:nowrap"><span class="swatch" style="background:${p.hex}"></span> ${esc(p.color)}</td>
+      ${SIZES.map(z=>{const n=p.stock[z];const c=n===0?"zero":n<=Math.ceil(p.min/2)?"low":"";return `<td class="sz ${c}" data-label="${z}"><input id="st-${p.id}-${z}" type="number" min="0" inputmode="numeric" value="${n}" data-p="${p.id}" data-z="${z}" aria-label="${esc(p.name+" "+p.color+" "+z)}"></td>`}).join("")}
+      <td class="mono c-2" data-label="Toplam"><b>${t}</b></td><td data-label="Doluluk"><div class="meter"><i style="width:${pct*100}%;background:${pct<.25?"var(--bad)":pct<.5?"var(--warn)":"var(--ok)"}"></i></div></td><td class="mono c-2" data-label="Fiyat">${fmtTL(p.price)}</td></tr>`}).join("")
+      :`<tr><td colspan="10" class="c-full"><div class="empty">Filtreye uyan ürün yok.</div></td></tr>`;
     body.querySelectorAll("input").forEach(inp=>inp.onchange=()=>{
       const p=prod(inp.dataset.p);p.stock[inp.dataset.z]=Math.max(0,parseInt(inp.value)||0);save();rows();renderNav();
       toast(`✓ ${esc(p.name)} ${esc(p.color)} ${inp.dataset.z}: <span class="mono">${p.stock[inp.dataset.z]}</span> adet olarak güncellendi`);
@@ -536,13 +560,13 @@ function viewOrders(v){
   const list=S.orders.filter(o=>orderFilter==="all"||(orderFilter==="acik"?o.status!=="teslim":o.status===orderFilter));
   v.innerHTML=topbar("Siparişler","Her sipariş baskı detaylarıyla birlikte atölyeye iletilir.",`<a class="btn primary" href="#yeni-siparis">+ Yeni sipariş</a>`)+`
   <div class="panel"><div class="panel-h"><div class="seg" id="otabs">${Object.entries(tabs).map(([k,l])=>`<button type="button" data-k="${k}" class="${orderFilter===k?"on":""}">${l}</button>`).join("")}</div></div>
-  <div class="tbl-wrap"><table><thead><tr><th>Sipariş</th><th>Müşteri</th><th>Ürün</th><th>Adet</th><th>Baskı</th><th>Teslim</th><th>Durum</th></tr></thead><tbody>
+  <div class="tbl-wrap"><table class="cards orders"><thead><tr><th>Sipariş</th><th>Müşteri</th><th>Ürün</th><th>Adet</th><th>Baskı</th><th>Teslim</th><th>Durum</th></tr></thead><tbody>
   ${list.length?list.map(o=>{const p=prod(o.productId),d=daysLeft(o.due);return `<tr class="click" data-open="${o.id}">
-    <td class="mono" style="color:var(--accent);font-weight:600">${o.id}</td><td><b>${esc(o.customer)}</b></td>
-    <td style="white-space:nowrap"><span class="swatch" style="background:${p.hex}"></span> ${esc(p.name)}</td>
-    <td class="mono" style="white-space:nowrap">${total(o.qty)} <span class="muted">(${qtyText(o.qty)})</span></td>
-    <td style="white-space:nowrap">${KINDS[o.design.kind]} · ${PLACES[o.design.place].t}<br><span class="muted" style="font-size:12.5px">${o.design.tech} · ${o.design.cm} cm</span></td>
-    <td><span class="due ${d<=1&&o.status!=="teslim"&&o.status!=="hazir"?"late":""}">${fmtDate(o.due)}</span></td><td>${chip(o.status)}</td></tr>`}).join(""):`<tr><td colspan="7"><div class="empty">Bu durumda sipariş yok.</div></td></tr>`}
+    <td class="mono o-id" style="color:var(--accent);font-weight:600">${o.id}</td><td class="c-full"><b>${esc(o.customer)}</b></td>
+    <td class="c-full" data-label="Ürün" style="white-space:nowrap"><span class="swatch" style="background:${p.hex}"></span> ${esc(p.name)}</td>
+    <td class="mono c-full" data-label="Adet" style="white-space:nowrap">${total(o.qty)} <span class="muted">(${qtyText(o.qty)})</span></td>
+    <td data-label="Baskı" style="white-space:nowrap">${KINDS[o.design.kind]} · ${PLACES[o.design.place].t}<br><span class="muted" style="font-size:12.5px">${o.design.tech} · ${o.design.cm} cm</span></td>
+    <td data-label="Teslim"><span class="due ${d<=1&&o.status!=="teslim"&&o.status!=="hazir"?"late":""}">${fmtDate(o.due)}</span></td><td class="o-st">${chip(o.status)}</td></tr>`}).join(""):`<tr><td colspan="7" class="c-full"><div class="empty">Bu durumda sipariş yok.</div></td></tr>`}
   </tbody></table></div></div>`;
   v.querySelectorAll("#otabs button").forEach(b=>b.onclick=()=>{orderFilter=b.dataset.k;viewOrders(v)});
   v.querySelectorAll("[data-open]").forEach(el=>el.onclick=()=>openOrder(el.dataset.open));
