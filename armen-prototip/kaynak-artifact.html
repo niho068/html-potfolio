@@ -151,7 +151,7 @@ textarea.input{resize:vertical;min-height:72px}
 .job.fresh{border-color:var(--info);box-shadow:0 0 0 3px var(--info-soft)}
 .job-top{display:flex;gap:10px}
 .job-thumb{width:64px;height:72px;flex:none;background:var(--surface-2);border-radius:8px;display:grid;place-items:center}
-.job-thumb svg{width:58px;height:66px}
+.job-thumb svg{width:90%;height:90%}
 .job .id{font:600 12px var(--f-mono);color:var(--accent)}
 .job .t{font-weight:700;line-height:1.3}
 .job .m{font-size:12.5px;color:var(--muted)}
@@ -236,6 +236,7 @@ textarea.input{resize:vertical;min-height:72px}
   table.cards td{display:block;padding:0;border:0;min-width:0;width:auto}
   table.cards td[data-label]::before{content:attr(data-label);display:block;font:600 10px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
   table.cards .c-full{grid-column:1/-1}
+  table.cards tr.click:hover td{background:transparent}
   table.cards .c-3{grid-column:span 3}
   table.cards .c-2{grid-column:span 2}
   table.cards .sz{text-align:center}
@@ -253,6 +254,7 @@ textarea.input{resize:vertical;min-height:72px}
 [hidden]{display:none!important}
 .who{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;padding:0 4px 8px;min-width:0}
 .who .mode-switch button{white-space:nowrap}
+@media (max-width:860px){.app{align-content:start}}
 .who-user{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:var(--side-hi)}
 .av{width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:700 13px var(--f-body);flex:none}
 .who-user .nm{min-width:0;flex:1}
@@ -295,6 +297,55 @@ textarea.input{resize:vertical;min-height:72px}
   .acc code{width:100%;padding-left:46px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* Dikkat kutusu, mesajlar, müşteri, transfer */
+.attn{border-color:var(--warn)}
+.attn .panel-h{background:var(--warn-soft);border-radius:var(--r) var(--r) 0 0}
+.attn .panel-h h2{color:var(--warn)}
+.attn-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);cursor:pointer;width:100%;background:none;border-left:0;border-right:0;border-top:0;text-align:left}
+.attn-row:last-child{border-bottom:0}
+.attn-row .ic{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex:none;font-size:15px}
+.attn-row .grow{flex:1;min-width:0}
+.attn-row .grow b{display:block}
+.attn-row .grow span{font-size:13px;color:var(--muted)}
+.ic-bad{background:var(--bad-soft);color:var(--bad)}
+.ic-info{background:var(--info-soft);color:var(--info)}
+.ic-warn{background:var(--warn-soft);color:var(--warn)}
+.hold{display:flex;gap:8px;align-items:flex-start;background:var(--bad-soft);color:var(--bad);border-radius:8px;padding:8px 10px;font-size:12.5px;font-weight:600}
+.job.held{border-color:var(--bad)}
+.mcount{display:inline-flex;align-items:center;gap:4px;font:600 11px var(--f-mono);color:var(--info);background:var(--info-soft);border-radius:99px;padding:2px 7px}
+.chip.st-hold{color:var(--bad);background:var(--bad-soft)}
+.chip.st-red{color:var(--bad);background:var(--bad-soft)}
+.thread{display:grid;gap:8px;grid-template-columns:minmax(0,1fr)}
+.msg{max-width:88%;justify-self:start;background:var(--surface-2);border:1px solid var(--line);border-radius:12px 12px 12px 4px;padding:9px 12px;font-size:14px}
+.msg.mine{justify-self:end;background:var(--accent-soft);border-color:transparent;border-radius:12px 12px 4px 12px}
+.msg.issue{border-color:var(--bad);background:var(--bad-soft)}
+.msg.sys{justify-self:center;max-width:100%;background:transparent;border:1px dashed var(--line);font-size:12.5px;color:var(--muted);text-align:center}
+.msg .mh{font-size:11.5px;color:var(--muted);margin-bottom:2px}
+.msg .mh b{color:var(--ink)}
+.msg-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:end}
+.msg-form textarea{min-height:44px}
+.issue-box{border:1px solid var(--bad);border-radius:12px;padding:14px;display:grid;gap:10px;background:var(--bad-soft)}
+.issue-box b{color:var(--bad)}
+.hints{display:grid;gap:8px}
+.hint{display:flex;align-items:center;gap:12px;border:1px solid var(--info);background:var(--info-soft);border-radius:10px;padding:10px 12px;text-align:left;width:100%}
+.hint .grow{flex:1;min-width:0}
+.hint b{display:block;color:var(--info)}
+.hint span{font-size:12.5px;color:var(--muted)}
+.repeat{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--ok-soft);color:var(--ok);border-radius:10px;padding:10px 14px;font-weight:600;font-size:14px;margin-bottom:16px}
+.tr-card{display:grid;gap:8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.tr-card:last-child{border-bottom:0}
+.tr-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.tr-route{font:600 13px var(--f-mono);color:var(--muted)}
+.tr-acts{display:flex;gap:8px;flex-wrap:wrap}
+.branch-tbl td,.branch-tbl th{padding:8px 10px;text-align:center}
+.branch-tbl td:first-child,.branch-tbl th:first-child{text-align:left}
+.cust-logos{display:flex;gap:8px;flex-wrap:wrap}
+.cust-logos .job-thumb{width:70px;height:78px}
+.menu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.menu-grid a{display:flex;flex-direction:column;gap:10px;padding:18px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);text-decoration:none;color:inherit;position:relative}
+.menu-grid a svg{width:26px;height:26px;color:var(--accent)}
+.menu-grid a .badge{position:absolute;top:12px;right:12px;background:var(--accent);color:var(--accent-ink);font:700 11px var(--f-mono);border-radius:99px;padding:2px 7px}
+@media (max-width:640px){.msg{max-width:94%}}
 </style>
 
 <div class="login" id="login" hidden></div>
@@ -343,6 +394,8 @@ const PLACES={
 const TECH=["DTF baskı","Serigrafi","Nakış","Süblimasyon"];
 const KINDS={logo:"Logo",desen:"Desen",yazi:"Yazı"};
 const ROLES={admin:"Yönetici",store:"Mağaza personeli",ws:"Atölye ustası"};
+const ISSUES=["Dosya bulanık / düşük çözünürlük","Ürün eksik geldi","Renk belirsiz","Ölçü veya konum belirsiz","Bilgi eksik","Diğer"];
+const TRS={bekliyor:{t:"Onay bekliyor",c:"st-baskida"},yolda:{t:"Yolda",c:"st-yeni"},tamam:{t:"Teslim alındı",c:"st-hazir"},red:{t:"Reddedildi",c:"st-red"}};
 const PX_PER_CM=3.6;
 
 const ICON={
@@ -351,7 +404,10 @@ const ICON={
   siparis:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>',
   yeni:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>',
   atolye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M6 20V9l6-5 6 5v11"/><circle cx="12" cy="13" r="2.5"/></svg>',
-  users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.5c2.6.2 4.3 1.9 5 4.5"/></svg>'
+  users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.5c2.6.2 4.3 1.9 5 4.5"/></svg>',
+  musteri:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M5.5 17c.6-2 2-3 3.5-3s2.9 1 3.5 3"/><path d="M15 10h3M15 14h3"/></svg>',
+  transfer:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3-3"/><path d="M20 16H7l3 3"/></svg>',
+  menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>'
 };
 
 // ---------------- Örnek veri ----------------
@@ -361,7 +417,7 @@ function seed(){
   const products=[
     P("p1","Oversize Tişört","tisort","Beyaz","#F7F6F2",349,10,[42,77,64,31,12],[20,34,30,15,4]),
     P("p2","Oversize Tişört","tisort","Siyah","#1C1B20",349,10,[38,55,49,22,6],[18,25,22,9,3]),
-    P("p3","Basic Tişört","tisort","Lacivert","#1F2B4D",249,10,[60,82,75,40,18],[30,41,37,18,8]),
+    P("p3","Basic Tişört","tisort","Lacivert","#1F2B4D",249,10,[60,82,75,40,18],[30,4,37,18,8]),
     P("p4","Kapüşonlu Sweatshirt","hoodie","Siyah","#1C1B20",749,6,[14,22,18,2,0],[7,10,9,4,1]),
     P("p5","Kapüşonlu Sweatshirt","hoodie","Gri Melanj","#9A98A0",749,6,[11,19,16,9,4],[6,12,9,5,2]),
     P("p6","Polo Yaka Tişört","polo","Bordo","#6E1D33",449,8,[20,28,26,14,7],[10,15,12,8,5]),
@@ -372,17 +428,31 @@ function seed(){
   const mk=(store,id,customer,phone,productId,qty,kind,place,tech,cm,text,ink,status,c,due,note,hist)=>({
     id,store,customer,phone,productId,qty,
     design:{kind,place,tech,cm,text,ink,file:null,fileName:kind==="yazi"?null:(text.toLowerCase().replace(/[^a-z0-9]+/g,"_")+".png")},
-    status,created:day(c),due:day(due),note,history:hist.map(([s,d,hm])=>[s,stampAt(d,hm)])});
+    status,created:day(c),due:day(due),note,history:hist.map(([s,d,hm])=>[s,stampAt(d,hm)]),
+    messages:[],unread:{store:0,ws:0},hold:null});
+  const full=(c,s)=>[["yeni",c,"10:00"],["baskida",c+1,"09:30"],["kalite",c+3,"14:00"],["hazir",c+4,"12:00"],["teslim",s,"17:00"]];
   const orders=[
     mk("m1","ARM-1042","Kuzey Kafe","0532 410 22 18","p1",q(0,8,4,0,0),"logo","gogus-sol","DTF baskı",9,"KUZEY","#1F2B4D","yeni",0,6,"Logo yaka dikişinden 8 cm aşağı.",[["yeni",0,"10:14"]]),
     mk("m1","ARM-1041","Atlas Spor Kulübü","0541 778 09 03","p3",q(6,10,10,4,0),"yazi","sirt","Serigrafi",28,"ATLAS SK","#FFFFFF","baskida",-1,3,"Sırt yazısı + numaralar ayrıca gelecek.",[["yeni",-1,"16:40"],["baskida",0,"09:05"]]),
     mk("m1","ARM-1039","Mavi Ada Kitabevi","0533 902 44 71","p8",q(2,3,3,2,0),"desen","gogus-orta","DTF baskı",24,"OKU","#1F2B4D","hazir",-5,0,"",[["yeni",-5,"14:02"],["baskida",-4,"10:10"],["kalite",-2,"15:30"],["hazir",-1,"12:00"]]),
     mk("m1","ARM-1037","Selin Y. (bireysel)","0530 120 77 35","p2",q(0,1,0,0,0),"yazi","gogus-orta","DTF baskı",20,"İYİ Kİ VARSIN","#F7F6F2","teslim",-9,-5,"Hediye paketi.",[["yeni",-9,"18:10"],["baskida",-8,"10:00"],["kalite",-7,"15:00"],["hazir",-6,"11:00"],["teslim",-5,"17:20"]]),
+    mk("m1","ARM-1031","Kuzey Kafe","0532 410 22 18","p1",q(0,6,6,0,0),"logo","gogus-sol","DTF baskı",9,"KUZEY","#1F2B4D","teslim",-34,-28,"Logo yaka dikişinden 8 cm aşağı.",full(-34,-28)),
+    mk("m1","ARM-1028","Atlas Spor Kulübü","0541 778 09 03","p3",q(4,8,8,4,0),"yazi","sirt","Serigrafi",28,"ATLAS SK","#FFFFFF","teslim",-52,-45,"",full(-52,-45)),
     mk("m2","ARM-2018","Ege Koşu Grubu","0544 318 50 27","p1",q(4,6,6,2,0),"yazi","sirt","DTF baskı",26,"EGE KOŞU","#7B1E3A","yeni",0,5,"Yazının altına 2026 eklenecek.",[["yeni",0,"11:32"]]),
     mk("m2","ARM-2017","Defne Düğün Organizasyonu","0505 233 61 90","p6",q(0,5,5,2,0),"logo","gogus-sol","Nakış",7,"DEFNE","#E8D9A8","kalite",-3,1,"Nakış ipliği altın sarısı.",[["yeni",-3,"11:20"],["baskida",-2,"08:45"],["kalite",0,"08:30"]]),
     mk("m2","ARM-2016","Rota Yazılım","0216 555 10 10","p5",q(0,4,6,2,0),"logo","gogus-sol","Nakış",8,"ROTA","#7B1E3A","baskida",-2,2,"",[["yeni",-2,"09:00"],["baskida",-1,"11:15"]]),
-    mk("m2","ARM-2015","Pera Pilates Stüdyosu","0532 667 14 09","p2",q(3,4,2,0,0),"logo","gogus-orta","DTF baskı",12,"PERA","#F7F6F2","hazir",-4,0,"",[["yeni",-4,"13:00"],["baskida",-3,"09:30"],["kalite",-2,"14:10"],["hazir",-1,"16:45"]])
+    mk("m2","ARM-2015","Pera Pilates Stüdyosu","0532 667 14 09","p2",q(3,4,2,0,0),"logo","gogus-orta","DTF baskı",12,"PERA","#F7F6F2","hazir",-4,0,"",[["yeni",-4,"13:00"],["baskida",-3,"09:30"],["kalite",-2,"14:10"],["hazir",-1,"16:45"]]),
+    mk("m2","ARM-2009","Rota Yazılım","0216 555 10 10","p5",q(0,3,5,2,0),"logo","gogus-sol","Nakış",8,"ROTA","#7B1E3A","teslim",-40,-34,"",full(-40,-34))
   ];
+  const o=id=>orders.find(x=>x.id===id);
+  o("ARM-1041").messages=[
+    {side:"store",name:"Elif Kaya",text:"Numaralar ayrıca gelecek, önce isimleri basabilirsiniz.",at:stampAt(-1,"16:45")},
+    {side:"ws",name:"Murat Usta",text:"Sırtta isimle numara aynı baskıda gidiyor. Numara listesi gelmeden bu işi bitiremiyoruz, listeyi ekler misiniz?",at:stampAt(0,"09:20"),issue:true}];
+  o("ARM-1041").hold={reason:"Bilgi eksik",by:"Murat Usta",at:stampAt(0,"09:20")};
+  o("ARM-1041").unread={store:1,ws:0};
+  o("ARM-2016").messages=[
+    {side:"ws",name:"Hasan Usta",text:"Nakış ipliği bordo yerine koyu kırmızı olabilir mi? Bordo azaldı.",at:stampAt(-1,"14:10")},
+    {side:"store",name:"Can Demir",text:"Müşteriye sordum, koyu kırmızı olur.",at:stampAt(-1,"15:02")}];
   const users=[
     {u:"yonetici",p:"armen2026",name:"Armen Yönetim",role:"admin",store:null},
     {u:"magaza1",p:"1234",name:"Elif Kaya",role:"store",store:"m1"},
@@ -390,28 +460,34 @@ function seed(){
     {u:"magaza2",p:"1234",name:"Can Demir",role:"store",store:"m2"},
     {u:"atolye2",p:"1234",name:"Hasan Usta",role:"ws",store:"m2"}
   ];
+  const transfers=[
+    {id:"TR-104",product:"p3",from:"m1",to:"m2",qty:q(0,10,0,0,0),status:"bekliyor",note:"Okul siparişi için lacivert M lazım, bizde 4 adet kaldı.",by:"Can Demir",at:stampAt(0,"09:40"),log:[]},
+    {id:"TR-103",product:"p4",from:"m2",to:"m1",qty:q(0,0,0,2,0),status:"yolda",note:"Siyah Hoodie XL bizde bitmek üzere.",by:"Elif Kaya",at:stampAt(-1,"11:00"),log:[["Onaylandı ve gönderildi · Can Demir",stampAt(-1,"15:30")]]}
+  ];
   return {
     stores:[{id:"m1",name:"1. Mağaza",ws:"1. Atölye"},{id:"m2",name:"2. Mağaza",ws:"2. Atölye"}],
-    users,products,orders,seq:{m1:1043,m2:2019},
-    seen:["ARM-1041","ARM-1039","ARM-1037","ARM-2017","ARM-2016","ARM-2015"],
+    users,products,orders,transfers,seq:{m1:1043,m2:2019},trSeq:105,
+    seen:["ARM-1041","ARM-1039","ARM-1037","ARM-1031","ARM-1028","ARM-2017","ARM-2016","ARM-2015","ARM-2009"],
     sales:{m1:[12,9,17,14,21,8,12],m2:[7,11,6,13,9,15,8]}
   };
 }
 
-const KEY="armen-prototip-v2";
+const KEY="armen-prototip-v3";
 let S; try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
-if(!S||!S.users) S=seed();
+if(!S||!S.transfers) S=seed();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){
   try{const lite=JSON.parse(JSON.stringify(S));lite.orders.forEach(o=>{if(o.design.file&&o.design.file.length>200000)o.design.file=null});localStorage.setItem(KEY,JSON.stringify(lite))}catch(_){}}}
 
 let me=null, adminScope="m1", adminMode="store";
 try{const u=localStorage.getItem(KEY+"-user");me=S.users.find(x=>x.u===u)||null;const sc=localStorage.getItem(KEY+"-scope");if(sc==="m1"||sc==="m2")adminScope=sc}catch(e){}
-let draft=null, filter={q:"",cat:"all",low:false}, orderFilter="all";
+let draft=null, filter={q:"",cat:"all",low:false}, orderFilter="all", custQ="";
 
 // ---------------- Kapsam (kim neyi görür) ----------------
 const curStore=()=>me.role==="admin"?adminScope:me.store;
 const store=(id=curStore())=>S.stores.find(s=>s.id===id);
+const otherStore=()=>S.stores.find(s=>s.id!==curStore());
 const mode=()=>me.role==="ws"?"shop":me.role==="store"?"store":adminMode;
+const side=()=>mode()==="shop"?"ws":"store";
 const stk=p=>p.stock[curStore()];
 const myOrders=()=>S.orders.filter(o=>o.store===curStore());
 
@@ -433,15 +509,29 @@ const nowStamp=()=>{const d=new Date();return T0.getDate()+" "+MONTHS[T0.getMont
 const initials=n=>n.split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0].toLocaleUpperCase("tr")).join("");
 const roleChip=r=>`<span class="role-chip r-${r}">${ROLES[r]}</span>`;
 const where=u=>u.role==="admin"?"Tüm mağazalar":u.role==="ws"?store(u.store).ws:store(u.store).name;
+const unreadOf=o=>(o.unread&&o.unread[side()])||0;
+const mBadge=o=>unreadOf(o)?`<span class="mcount" title="Okunmamış mesaj">💬 ${unreadOf(o)}</span>`:"";
+const holdChip=o=>o.hold?`<span class="chip st-hold">Beklemede</span>`:"";
+const ordersNeedingMe=()=>myOrders().filter(o=>(side()==="store"&&o.hold)||unreadOf(o)>0);
+const trIncoming=()=>S.transfers.filter(t=>t.from===curStore()&&t.status==="bekliyor");
+const trToReceive=()=>S.transfers.filter(t=>t.to===curStore()&&t.status==="yolda");
+const trBadge=()=>trIncoming().length+trToReceive().length;
+const custKey=o=>(o.phone||"").replace(/\D/g,"")||o.customer.toLocaleLowerCase("tr");
+function customers(){
+  const m=new Map();
+  myOrders().slice().sort((a,b)=>b.created.localeCompare(a.created)).forEach(o=>{
+    const k=custKey(o); if(!m.has(k)) m.set(k,{key:k,name:o.customer,phone:o.phone,orders:[]}); m.get(k).orders.push(o)});
+  return [...m.values()];
+}
 
 function toast(html){
   const t=document.createElement("div");t.className="toast";t.innerHTML=html;document.body.appendChild(t);
-  setTimeout(()=>{t.style.transition="opacity .3s";t.style.opacity="0";setTimeout(()=>t.remove(),300)},3200);
+  setTimeout(()=>{t.style.transition="opacity .3s";t.style.opacity="0";setTimeout(()=>t.remove(),300)},3400);
 }
 
 // Giysi çizimi (ön/arka) + baskı yerleşimi
 function isDark(hex){const n=parseInt(hex.slice(1),16);const r=n>>16,g=n>>8&255,b=n&255;return (r*299+g*587+b*114)/1000<110}
-function garment(p,design,side,opts={}){
+function garment(p,design,sd,opts={}){
   const hex=p?p.hex:"#F7F6F2",cat=p?p.cat:"tisort",dark=isDark(hex);
   const body=cat==="hoodie"||cat==="sweat"
    ?"M118 28 L58 56 L18 210 L60 222 L92 120 L92 380 L268 380 L268 120 L300 222 L342 210 L302 56 L242 28 Q180 62 118 28 Z"
@@ -449,16 +539,16 @@ function garment(p,design,side,opts={}){
   const stroke=dark?"rgba(255,255,255,.18)":"rgba(0,0,0,.16)";
   let extra="";
   if(cat==="hoodie"){
-    extra=side==="on"
+    extra=sd==="on"
       ?`<path d="M128 30 Q180 110 232 30 Q214 4 180 2 Q146 4 128 30Z" fill="${hex}" stroke="${stroke}" stroke-width="2"/><path d="M168 66 L166 120 M192 66 L194 120" stroke="${stroke}" stroke-width="2"/><path d="M128 300 L232 300 L240 360 L120 360Z" fill="none" stroke="${stroke}" stroke-width="2"/>`
       :`<path d="M124 32 Q180 -18 236 32 Q236 70 180 84 Q124 70 124 32Z" fill="${hex}" stroke="${stroke}" stroke-width="2"/>`;
   }else if(cat==="polo"){
-    extra=side==="on"?`<path d="M150 34 L180 70 L210 34" fill="none" stroke="${stroke}" stroke-width="3"/><path d="M180 70 L180 120" stroke="${stroke}" stroke-width="2"/><circle cx="180" cy="86" r="2.5" fill="${stroke}"/><circle cx="180" cy="104" r="2.5" fill="${stroke}"/>`:"";
+    extra=sd==="on"?`<path d="M150 34 L180 70 L210 34" fill="none" stroke="${stroke}" stroke-width="3"/><path d="M180 70 L180 120" stroke="${stroke}" stroke-width="2"/><circle cx="180" cy="86" r="2.5" fill="${stroke}"/><circle cx="180" cy="104" r="2.5" fill="${stroke}"/>`:"";
   }else{
-    extra=side==="on"?`<path d="M118 26 Q180 72 242 26" fill="none" stroke="${stroke}" stroke-width="5"/>`:`<path d="M126 30 Q180 46 234 30" fill="none" stroke="${stroke}" stroke-width="4"/>`;
+    extra=sd==="on"?`<path d="M118 26 Q180 72 242 26" fill="none" stroke="${stroke}" stroke-width="5"/>`:`<path d="M126 30 Q180 46 234 30" fill="none" stroke="${stroke}" stroke-width="4"/>`;
   }
   let art="";
-  if(design&&PLACES[design.place]&&PLACES[design.place].side===side){
+  if(design&&PLACES[design.place]&&PLACES[design.place].side===sd){
     const pl=PLACES[design.place],w=Math.max(16,Math.min(pl.max,+design.cm||8))*PX_PER_CM,x=pl.x-w/2,y=pl.y-w/2;
     if(design.kind==="yazi"){
       const txt=design.text||"YAZI",fs=Math.min(w/Math.max(2,txt.length)*1.7,w*.55);
@@ -471,7 +561,7 @@ function garment(p,design,side,opts={}){
            `<text x="${pl.x}" y="${y+w+18}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#E0457B">${(+design.cm||0)} cm</text>`;
     }
   }
-  return `<svg viewBox="0 0 360 400" role="img" aria-label="${esc((p?p.name+" "+p.color:"Ürün")+" — "+(side==="on"?"ön":"arka"))}"><path d="${body}" fill="${hex}" stroke="${stroke}" stroke-width="2" stroke-linejoin="round"/>${extra}${art}</svg>`;
+  return `<svg viewBox="0 0 360 400" role="img" aria-label="${esc((p?p.name+" "+p.color:"Ürün")+" — "+(sd==="on"?"ön":"arka"))}"><path d="${body}" fill="${hex}" stroke="${stroke}" stroke-width="2" stroke-linejoin="round"/>${extra}${art}</svg>`;
 }
 function sampleMark(d,cx,cy,w){
   const r=w/2,ink=d.ink||"#1F2B4D",initial=esc((d.text||"A").trim().charAt(0).toLocaleUpperCase("tr"));
@@ -482,6 +572,7 @@ function sampleMark(d,cx,cy,w){
   }
   return `<g><circle cx="${cx}" cy="${cy}" r="${r}" fill="${ink}"/><text x="${cx}" y="${cy}" text-anchor="middle" dominant-baseline="central" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="${w*.5}" fill="${isDark(ink)?"#F7F6F2":"#1A1622"}">${initial}</text></g>`;
 }
+const thumb=(o,w=44,h=50)=>`<div class="job-thumb" style="width:${w}px;height:${h}px">${garment(prod(o.productId),o.design,PLACES[o.design.place].side)}</div>`;
 
 // ---------------- Giriş ----------------
 function renderLogin(err=""){
@@ -510,16 +601,16 @@ function renderLogin(err=""){
   $("#lf").onsubmit=e=>{e.preventDefault();
     const u=S.users.find(x=>x.u===$("#lu").value.trim().toLocaleLowerCase("tr"));
     if(!u||u.p!==$("#lp").value){renderLogin("Kullanıcı adı veya şifre hatalı. Demo hesaplarından birini seçebilirsiniz.");return}
-    me=u; adminMode="store"; try{localStorage.setItem(KEY+"-user",u.u)}catch(_){}
+    me=u; adminMode="store"; draft=null; try{localStorage.setItem(KEY+"-user",u.u)}catch(_){}
     location.hash=u.role==="ws"?"atolye":"panel"; render();
   };
 }
-function logout(){me=null;draft=null;try{localStorage.removeItem(KEY+"-user")}catch(_){} $("#layer").innerHTML=""; history.replaceState(null,"",location.pathname+location.search); render()}
+function logout(){me=null;draft=null;try{localStorage.removeItem(KEY+"-user")}catch(_){} closeLayer(); history.replaceState(null,"",location.pathname+location.search); render()}
 
 // ---------------- Navigasyon ----------------
 function allowed(){
   if(mode()==="shop") return me.role==="admin"?["atolye","kullanicilar"]:["atolye"];
-  const r=["panel","stok","siparisler","yeni-siparis","atolye"];
+  const r=["panel","stok","siparisler","yeni-siparis","musteriler","transferler","atolye","menu"];
   return me.role==="admin"?r.concat("kullanicilar"):r;
 }
 function route(){const h=location.hash.replace("#","");const a=allowed();return a.includes(h)?h:a[0]}
@@ -535,26 +626,28 @@ function renderWho(){
   $("#who").innerHTML=h;
   $("#out").onclick=logout;
   if(me.role==="admin"){
-    $("#sw-store").querySelectorAll("button").forEach(b=>b.onclick=()=>{adminScope=b.dataset.v;draft=null;try{localStorage.setItem(KEY+"-scope",adminScope)}catch(_){} $("#layer").innerHTML="";render();toast(`${esc(store().name)} ve ${esc(store().ws)} görüntüleniyor`)});
-    $("#sw-mode").querySelectorAll("button").forEach(b=>b.onclick=()=>{adminMode=b.dataset.v;$("#layer").innerHTML="";location.hash=adminMode==="shop"?"atolye":"panel";render()});
+    $("#sw-store").querySelectorAll("button").forEach(b=>b.onclick=()=>{adminScope=b.dataset.v;draft=null;try{localStorage.setItem(KEY+"-scope",adminScope)}catch(_){} closeLayer();render();toast(`${esc(store().name)} ve ${esc(store().ws)} görüntüleniyor`)});
+    $("#sw-mode").querySelectorAll("button").forEach(b=>b.onclick=()=>{adminMode=b.dataset.v;closeLayer();location.hash=adminMode==="shop"?"atolye":"panel";render()});
   }
 }
 function renderNav(){
-  const r=route(),st=store(),bj=newJobs();
+  const r=route(),st=store(),bj=newJobs()+ordersNeedingMe().length,ob=ordersNeedingMe().length,tb=trBadge();
   const link=(id,label,ic,badge)=>`<a href="#${id}" class="${r===id?"on":""}">${ICON[ic]}<span>${label}</span>${badge?`<span class="badge">${badge}</span>`:""}</a>`;
   let h="";
   if(mode()==="store"){
-    h+=`<div class="nav-sep">${esc(st.name)}</div>`+link("panel","Genel bakış","panel")+link("stok","Stok","stok",lowCells()||"")+link("siparisler","Siparişler","siparis")+link("yeni-siparis","Yeni sipariş","yeni");
+    h+=`<div class="nav-sep">${esc(st.name)}</div>`+link("panel","Genel bakış","panel")+link("stok","Stok","stok",lowCells()||"")+link("siparisler","Siparişler","siparis",ob||"")+link("yeni-siparis","Yeni sipariş","yeni")+link("musteriler","Müşteriler","musteri")+link("transferler","Şube transferi","transfer",tb||"");
     h+=`<div class="nav-sep">Bağlı atölye</div>`+link("atolye",esc(st.ws),"atolye");
   }else{
     h+=`<div class="nav-sep">${esc(st.ws)}</div>`+link("atolye","İş emirleri","atolye",bj||"");
   }
   if(me.role==="admin") h+=`<div class="nav-sep">Yönetim</div>`+link("kullanicilar","Kullanıcılar","users");
   $("#nav").innerHTML=h;
-  let m=mode()==="store"?[["panel","Özet","panel"],["stok","Stok","stok"],["yeni-siparis","Sipariş","yeni"],["siparisler","Liste","siparis"],["atolye","Atölye","atolye"]]:[["atolye","İş emirleri","atolye"]];
-  if(me.role==="admin") m.push(["kullanicilar","Kişiler","users"]);
+  let m=mode()==="store"
+    ?[["panel","Özet","panel",0],["stok","Stok","stok",0],["yeni-siparis","Sipariş","yeni",0],["siparisler","Liste","siparis",ob],["atolye","Atölye","atolye",0],["menu","Diğer","menu",tb]]
+    :[["atolye","İş emirleri","atolye",bj]].concat(me.role==="admin"?[["kullanicilar","Kişiler","users",0]]:[]);
   $("#mobnav").hidden=m.length<2;
-  $("#mobnav").innerHTML=m.map(([id,l,ic])=>`<a href="#${id}" class="${r===id?"on":""}">${ICON[ic]}<span>${l}</span>${id==="atolye"&&mode()==="shop"&&bj?`<span class="badge">${bj}</span>`:""}</a>`).join("");
+  const mr=["musteriler","transferler","kullanicilar"].includes(r)&&mode()==="store"?"menu":r;
+  $("#mobnav").innerHTML=m.map(([id,l,ic,b])=>`<a href="#${id}" class="${mr===id?"on":""}">${ICON[ic]}<span>${l}</span>${b?`<span class="badge">${b}</span>`:""}</a>`).join("");
   $("#app").classList.toggle("workshop-mode",mode()==="shop");
 }
 
@@ -564,27 +657,40 @@ function render(){
   const r=route();
   if(location.hash!=="#"+r){history.replaceState(null,"","#"+r)}
   renderWho();renderNav();
-  ({panel:viewPanel,stok:viewStock,siparisler:viewOrders,"yeni-siparis":viewNew,atolye:viewWorkshop,kullanicilar:viewUsers})[r]($("#view"));
+  ({panel:viewPanel,stok:viewStock,siparisler:viewOrders,"yeni-siparis":viewNew,musteriler:viewCustomers,transferler:viewTransfers,atolye:viewWorkshop,kullanicilar:viewUsers,menu:viewMenu})[r]($("#view"));
   window.scrollTo(0,0);
 }
 function topbar(title,sub,right=""){
-  const st=store();
-  const ctx=mode()==="shop"?st.ws:st.name;
+  const st=store(),ctx=mode()==="shop"?st.ws:st.name;
   return `<div class="topbar"><div><div class="eyebrow">Armen · ${esc(ctx)}</div><h1>${title}</h1><p class="sub">${sub}</p></div><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span class="demo-tag">Örnek veri</span>${right}</div></div>`;
 }
+function closeLayer(){$("#layer").innerHTML=""}
+function drawer(label,inner){
+  $("#layer").innerHTML=`<div class="scrim" id="scrim"></div><aside class="drawer" role="dialog" aria-label="${esc(label)}">${inner}</aside>`;
+  $("#scrim").onclick=closeLayer;const c=$("#cls");if(c)c.onclick=closeLayer;
+}
 
-// ---------------- Görünümler ----------------
+// ---------------- Genel bakış ----------------
+function attention(){
+  const items=[];
+  myOrders().filter(o=>o.hold).forEach(o=>items.push({ic:"⚠",c:"ic-bad",t:`${o.id} · ${esc(o.customer)}`,s:`${esc(store().ws)} sorun bildirdi: ${esc(o.hold.reason)}. İş beklemede.`,open:o.id}));
+  myOrders().filter(o=>!o.hold&&unreadOf(o)).forEach(o=>items.push({ic:"💬",c:"ic-info",t:`${o.id} · ${esc(o.customer)}`,s:`${unreadOf(o)} yeni mesaj: “${esc(o.messages[o.messages.length-1].text.slice(0,70))}”`,open:o.id}));
+  trIncoming().forEach(t=>{const p=prod(t.product);items.push({ic:"⇄",c:"ic-warn",t:`${t.id} · ${esc(store(t.to).name)} transfer istiyor`,s:`${total(t.qty)} adet ${esc(p.name)} ${esc(p.color)} (${qtyText(t.qty)}). Onayınız bekleniyor.`,go:"transferler"})});
+  trToReceive().forEach(t=>{const p=prod(t.product);items.push({ic:"⇄",c:"ic-info",t:`${t.id} · ${esc(store(t.from).name)}'dan yolda`,s:`${total(t.qty)} adet ${esc(p.name)} ${esc(p.color)}. Ürün gelince teslim aldım deyin.`,go:"transferler"})});
+  return items;
+}
 function viewPanel(v){
   const st=store(),orders=myOrders(),active=orders.filter(o=>o.status!=="teslim");
-  const pieces=S.products.reduce((a,p)=>a+stockTotal(p),0);
-  const value=S.products.reduce((a,p)=>a+stockTotal(p)*p.price,0);
+  const pieces=S.products.reduce((a,p)=>a+stockTotal(p),0),value=S.products.reduce((a,p)=>a+stockTotal(p)*p.price,0);
   const late=active.filter(o=>daysLeft(o.due)<=1&&o.status!=="hazir");
   const lows=[];S.products.forEach(p=>SIZES.forEach(z=>{if(isLow(p,z))lows.push([p,z])}));
   const sales=S.sales[st.id],max=Math.max(...sales,1);
-  const dayLbl=i=>{const d=shift(i-6);return ["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"][d.getDay()]};
+  const dayLbl=i=>["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"][shift(i-6).getDay()];
   const cnt=s=>orders.filter(o=>o.status===s).length;
   const hello=me.role==="admin"?"Merhaba":"Merhaba, "+esc(me.name.split(" ")[0]);
+  const att=attention();
   v.innerHTML=topbar(hello,`${T0.getDate()} ${MONTHS_L[T0.getMonth()]} ${T0.getFullYear()} ${WDAYS[T0.getDay()]} · ${esc(st.name)} ve ${esc(st.ws)} bugünkü durumu`,`<a class="btn primary" href="#yeni-siparis">+ Yeni sipariş</a>`)+`
+  ${att.length?`<div class="panel attn" style="margin-bottom:18px"><div class="panel-h"><h2>İlgilenmeniz gerekenler · ${att.length}</h2></div><div class="panel-b" style="padding-block:2px">${att.map((a,i)=>`<button type="button" class="attn-row" data-i="${i}"><span class="ic ${a.c}">${a.ic}</span><span class="grow"><b>${a.t}</b><span>${a.s}</span></span><span class="muted">→</span></button>`).join("")}</div></div>`:""}
   <div class="kpis">
     <div class="panel kpi"><div class="eyebrow">Stoktaki ürün</div><div class="v">${pieces.toLocaleString("tr-TR")}</div><div class="d">${S.products.length} model · ${fmtTL(value)} değer</div></div>
     <div class="panel kpi"><div class="eyebrow">Açık sipariş</div><div class="v">${active.length}</div><div class="d">${active.reduce((a,o)=>a+total(o.qty),0)} parça üretimde</div></div>
@@ -599,10 +705,9 @@ function viewPanel(v){
         </div></div></div>
       <div class="panel"><div class="panel-h"><h2>Son siparişler</h2><a class="btn sm ghost" href="#siparisler">Tümü →</a></div>
         <div class="panel-b" style="padding-block:4px">${orders.length?orders.slice(0,5).map(o=>{const p=prod(o.productId);return `
-          <div class="list-row" data-open="${o.id}" style="cursor:pointer">
-            <div class="job-thumb" style="width:44px;height:50px">${garment(p,o.design,PLACES[o.design.place].side)}</div>
+          <div class="list-row" data-open="${o.id}" style="cursor:pointer">${thumb(o)}
             <div class="grow"><b>${esc(o.customer)}</b><span class="muted" style="font-size:13px"><span class="mono">${o.id}</span> · ${total(o.qty)} × ${esc(p.name)}</span></div>
-            ${chip(o.status)}</div>`}).join(""):`<p class="muted" style="padding:12px 0">Henüz sipariş yok.</p>`}</div></div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">${mBadge(o)}${o.hold?holdChip(o):chip(o.status)}</div></div>`}).join(""):`<p class="muted" style="padding:12px 0">Henüz sipariş yok.</p>`}</div></div>
     </div>
     <div class="grid">
       <div class="panel"><div class="panel-h"><h2>Son 7 günün satışı</h2><span class="muted mono" style="font-size:12px">adet / gün</span></div>
@@ -610,15 +715,17 @@ function viewPanel(v){
       <div class="panel"><div class="panel-h"><h2>Kritik stok</h2><a class="btn sm ghost" href="#stok">Stoğa git →</a></div>
         <div class="panel-b" style="padding-block:4px">${lows.length?lows.slice(0,6).map(([p,z])=>{const n=stk(p)[z];return `
           <div class="list-row"><span class="swatch" style="background:${p.hex}"></span><div class="grow"><b>${esc(p.name)}</b><span class="muted" style="font-size:13px">${esc(p.color)} · beden ${z}</span></div>
-          <span class="chip ${n===0?"":"st-baskida"}" style="${n===0?"color:var(--bad);background:var(--bad-soft)":""}">${n===0?"Tükendi":n+" adet"}</span></div>`}).join(""):`<p class="muted" style="padding:12px 0">Kritik seviyede ürün yok.</p>`}</div></div>
+          <span class="chip ${n===0?"st-red":"st-baskida"}">${n===0?"Tükendi":n+" adet"}</span></div>`}).join(""):`<p class="muted" style="padding:12px 0">Kritik seviyede ürün yok.</p>`}</div></div>
     </div>
   </div>`;
   v.querySelectorAll("[data-open]").forEach(el=>el.onclick=()=>openOrder(el.dataset.open));
+  v.querySelectorAll(".attn-row").forEach(el=>el.onclick=()=>{const a=att[+el.dataset.i];if(a.open)openOrder(a.open);else go(a.go)});
 }
 
+// ---------------- Stok ----------------
 function viewStock(v){
   const cats={all:"Tümü",tisort:"Tişört",polo:"Polo",hoodie:"Kapüşonlu",sweat:"Sweatshirt"};
-  v.innerHTML=topbar("Stok",`${esc(store().name)} stoğu. Hücreye tıklayıp adet girin; siparişler stoktan otomatik düşer.`,`<button class="btn" id="add-prod" type="button">+ Ürün ekle</button>`)+`
+  v.innerHTML=topbar("Stok",`${esc(store().name)} stoğu. Hücreye tıklayıp adet girin; eksik bedeni diğer şubeden isteyebilirsiniz.`,`<button class="btn" id="add-prod" type="button">+ Ürün ekle</button>`)+`
   <div class="panel">
     <div class="panel-h"><div class="filters">
       <input class="input" id="q" placeholder="Ürün veya renk ara" value="${esc(filter.q)}" style="width:220px">
@@ -626,11 +733,11 @@ function viewStock(v){
       <label style="display:flex;gap:6px;align-items:center;font-weight:600;font-size:14px"><input type="checkbox" id="lowonly" ${filter.low?"checked":""}> Sadece kritik</label>
     </div></div>
     <div class="tbl-wrap"><table class="cards">
-      <thead><tr><th>Ürün</th><th>Renk</th>${SIZES.map(z=>`<th class="sz">${z}</th>`).join("")}<th>Toplam</th><th>Doluluk</th><th>Fiyat</th></tr></thead>
+      <thead><tr><th>Ürün</th><th>Renk</th>${SIZES.map(z=>`<th class="sz">${z}</th>`).join("")}<th>Toplam</th><th>Doluluk</th><th>Fiyat</th><th></th></tr></thead>
       <tbody id="stock-body"></tbody>
     </table></div>
   </div>
-  <p class="muted" style="font-size:12.5px;margin-top:10px">Kırmızı hücreler minimum seviyenin yarısının altında. Diğer mağazanın stoğu bu ekranda görünmez.</p>`;
+  <p class="muted" style="font-size:12.5px;margin-top:10px">Kırmızı hücreler minimum seviyenin yarısının altında. “Şubeler” düğmesi diğer şubedeki adedi gösterir ve transfer talebi açar.</p>`;
   const body=$("#stock-body");
   function rows(){
     const q=filter.q.toLocaleLowerCase("tr");
@@ -638,12 +745,14 @@ function viewStock(v){
     body.innerHTML=list.length?list.map(p=>{const s=stk(p),t=stockTotal(p),cap=p.min*5*SIZES.length,pct=Math.min(1,t/cap);
       return `<tr><td class="c-3"><b>${esc(p.name)}</b></td><td class="c-2" style="white-space:nowrap"><span class="swatch" style="background:${p.hex}"></span> ${esc(p.color)}</td>
       ${SIZES.map(z=>{const n=s[z],c=n===0?"zero":isLow(p,z)?"low":"";return `<td class="sz ${c}" data-label="${z}"><input id="st-${p.id}-${z}" type="number" min="0" inputmode="numeric" value="${n}" data-p="${p.id}" data-z="${z}" aria-label="${esc(p.name+" "+p.color+" "+z)}"></td>`}).join("")}
-      <td class="mono c-2" data-label="Toplam"><b>${t}</b></td><td data-label="Doluluk"><div class="meter"><i style="width:${pct*100}%;background:${pct<.25?"var(--bad)":pct<.5?"var(--warn)":"var(--ok)"}"></i></div></td><td class="mono c-2" data-label="Fiyat">${fmtTL(p.price)}</td></tr>`}).join("")
-      :`<tr><td colspan="10" class="c-full"><div class="empty">Filtreye uyan ürün yok.</div></td></tr>`;
+      <td class="mono c-2" data-label="Toplam"><b>${t}</b></td><td data-label="Doluluk"><div class="meter"><i style="width:${pct*100}%;background:${pct<.25?"var(--bad)":pct<.5?"var(--warn)":"var(--ok)"}"></i></div></td><td class="mono c-2" data-label="Fiyat">${fmtTL(p.price)}</td>
+      <td class="c-full"><button class="btn sm" type="button" data-br="${p.id}">⇄ Şubeler</button></td></tr>`}).join("")
+      :`<tr><td colspan="11" class="c-full"><div class="empty">Filtreye uyan ürün yok.</div></td></tr>`;
     body.querySelectorAll("input").forEach(inp=>inp.onchange=()=>{
       const p=prod(inp.dataset.p);stk(p)[inp.dataset.z]=Math.max(0,parseInt(inp.value)||0);save();rows();renderNav();
       toast(`✓ ${esc(p.name)} ${esc(p.color)} ${inp.dataset.z}: <span class="mono">${stk(p)[inp.dataset.z]}</span> adet (${esc(store().name)})`);
     });
+    body.querySelectorAll("[data-br]").forEach(b=>b.onclick=()=>openBranch(b.dataset.br));
   }
   rows();
   $("#q").oninput=e=>{filter.q=e.target.value;rows()};
@@ -652,11 +761,8 @@ function viewStock(v){
   $("#add-prod").onclick=openAddProduct;
 }
 
-function closeLayer(){$("#layer").innerHTML=""}
 function openAddProduct(){
-  const L=$("#layer");
-  L.innerHTML=`<div class="scrim" id="scrim"></div><aside class="drawer" role="dialog" aria-label="Ürün ekle">
-    <div class="drawer-h"><div><div class="eyebrow">Stok · ${esc(store().name)}</div><h2>Yeni ürün</h2></div><button class="x" id="cls" type="button" aria-label="Kapat">×</button></div>
+  drawer("Ürün ekle",`<div class="drawer-h"><div><div class="eyebrow">Stok · ${esc(store().name)}</div><h2>Yeni ürün</h2></div><button class="x" id="cls" type="button" aria-label="Kapat">×</button></div>
     <form id="pf" class="stack">
       <div class="field"><label for="pn">Ürün adı</label><input class="input" id="pn" required value="Oversize Tişört"></div>
       <div class="row">
@@ -668,10 +774,9 @@ function openAddProduct(){
         <div class="field"><label for="phex">Renk</label><input class="input" id="phex" type="color" value="#7D95B0" style="height:44px;padding:4px"></div>
       </div>
       <div><div class="lbl" style="margin-bottom:6px">${esc(store().name)} başlangıç stoğu</div><div class="sizes">${SIZES.map(z=>`<div class="s"><b>${z}</b><input id="ps-${z}" type="number" min="0" value="20"></div>`).join("")}</div>
-        <p class="muted" style="font-size:12.5px;margin-top:8px">Ürün diğer mağazanın kataloğuna 0 stokla eklenir.</p></div>
+        <p class="muted" style="font-size:12.5px;margin-top:8px">Ürün diğer şubenin kataloğuna 0 stokla eklenir.</p></div>
       <button class="btn primary" type="submit">Stoğa ekle</button>
-    </form></aside>`;
-  $("#scrim").onclick=closeLayer;$("#cls").onclick=closeLayer;
+    </form>`);
   $("#pf").onsubmit=e=>{e.preventDefault();
     const zero=Object.fromEntries(SIZES.map(z=>[z,0]));
     const stock=Object.fromEntries(S.stores.map(s=>[s.id,{...zero}]));
@@ -680,37 +785,156 @@ function openAddProduct(){
     S.products.push(p);save();closeLayer();render();toast(`✓ ${esc(p.name)} (${esc(p.color)}) stoğa eklendi`)};
 }
 
+// ---------------- Şubeler arası stok + transfer ----------------
+function createTransfer(pid,qty,note){
+  const t={id:"TR-"+(S.trSeq++),product:pid,from:otherStore().id,to:curStore(),qty,status:"bekliyor",note,by:me.name,at:nowStamp(),log:[]};
+  S.transfers.unshift(t);save();renderNav();
+  toast(`⇄ <span><b class="mono">${t.id}</b> ${esc(otherStore().name)}'a gönderildi · ${total(qty)} adet</span>`);
+  return t;
+}
+function openBranch(pid,pre){
+  const p=prod(pid),me_s=store(),ot=otherStore(),mine=p.stock[me_s.id],theirs=p.stock[ot.id];
+  const ask=pre||Object.fromEntries(SIZES.map(z=>[z,0]));
+  drawer("Şube stoğu",`<div class="drawer-h"><div><div class="eyebrow">Şubeler arası stok</div><h2>${esc(p.name)} · ${esc(p.color)}</h2></div><button class="x" id="cls" type="button" aria-label="Kapat">×</button></div>
+    <div class="stack">
+      <div class="panel"><div class="tbl-wrap"><table class="branch-tbl"><thead><tr><th>Şube</th>${SIZES.map(z=>`<th>${z}</th>`).join("")}<th>Toplam</th></tr></thead><tbody>
+        <tr><td><b>${esc(me_s.name)}</b> <span class="muted">(siz)</span></td>${SIZES.map(z=>`<td class="mono">${mine[z]}</td>`).join("")}<td class="mono"><b>${total(mine)}</b></td></tr>
+        <tr><td><b>${esc(ot.name)}</b></td>${SIZES.map(z=>`<td class="mono">${theirs[z]}</td>`).join("")}<td class="mono"><b>${total(theirs)}</b></td></tr>
+      </tbody></table></div></div>
+      <p class="muted" style="font-size:12.5px">Diğer şubenin yalnızca adetlerini görürsünüz; fiyat ve siparişleri görünmez.</p>
+      <form id="tf" class="stack">
+        <h3>${esc(ot.name)}'dan transfer iste</h3>
+        <div class="sizes">${SIZES.map(z=>`<div class="s"><b>${z}</b><input id="tq-${z}" type="number" min="0" max="${theirs[z]}" value="${Math.min(ask[z]||0,theirs[z])}" data-z="${z}"><small>en fazla ${theirs[z]}</small></div>`).join("")}</div>
+        <div class="field"><label for="tn">Not</label><input class="input" id="tn" placeholder="Örn. Kuzey Kafe siparişi için" value="${esc((pre&&pre._note)||"")}"></div>
+        <div id="terr"></div>
+        <button class="btn primary" type="submit">Transfer talebi gönder</button>
+        <p class="muted" style="font-size:12.5px">${esc(ot.name)} onaylayınca ürün yola çıkar; siz teslim aldığınızda stoğunuza eklenir.</p>
+      </form>
+    </div>`);
+  $("#tf").onsubmit=e=>{e.preventDefault();
+    const qty=Object.fromEntries(SIZES.map(z=>[z,Math.max(0,parseInt($("#tq-"+z).value)||0)]));
+    const over=SIZES.filter(z=>qty[z]>theirs[z]);
+    if(!total(qty))return $("#terr").innerHTML=`<div class="notice bad">En az bir beden için adet girin.</div>`;
+    if(over.length)return $("#terr").innerHTML=`<div class="notice bad">${esc(ot.name)}'da yeterli stok yok: ${over.join(", ")}</div>`;
+    createTransfer(pid,qty,$("#tn").value.trim());closeLayer();if(route()==="transferler")render();
+  };
+}
+function viewTransfers(v){
+  const cur=curStore();
+  const inc=S.transfers.filter(t=>t.from===cur), out=S.transfers.filter(t=>t.to===cur);
+  const card=(t,dir)=>{const p=prod(t.product),acts=[];
+    if(dir==="in"&&t.status==="bekliyor") acts.push(`<button class="btn sm primary" type="button" data-ok="${t.id}">Onayla ve gönder</button>`,`<button class="btn sm" type="button" data-no="${t.id}">Reddet</button>`);
+    if(dir==="out"&&t.status==="yolda") acts.push(`<button class="btn sm primary" type="button" data-rcv="${t.id}">Teslim aldım</button>`);
+    if(dir==="out"&&t.status==="bekliyor") acts.push(`<button class="btn sm" type="button" data-cancel="${t.id}">Talebi geri çek</button>`);
+    return `<div class="tr-card"><div class="tr-top"><div style="display:flex;gap:10px;align-items:center"><span class="swatch" style="background:${p.hex};width:22px;height:22px"></span><div><b>${esc(p.name)} · ${esc(p.color)}</b><div class="tr-route">${t.id} · ${esc(store(t.from).name)} → ${esc(store(t.to).name)}</div></div></div><span class="chip ${TRS[t.status].c}">${TRS[t.status].t}</span></div>
+      <div class="mono" style="font-size:14px">${total(t.qty)} adet · ${qtyText(t.qty)}</div>
+      ${t.note?`<div class="muted" style="font-size:13.5px">“${esc(t.note)}”</div>`:""}
+      <div class="muted" style="font-size:12px">Talep: ${esc(t.by)} · ${t.at}${t.log.map(l=>`<br>${esc(l[0])} · ${l[1]}`).join("")}</div>
+      ${acts.length?`<div class="tr-acts">${acts.join("")}</div>`:""}<div class="terr" id="err-${t.id}"></div></div>`};
+  v.innerHTML=topbar("Şube transferi",`${esc(store().name)} ile ${esc(otherStore().name)} arasındaki ürün talepleri.`,`<a class="btn" href="#stok">Stoktan talep aç</a>`)+`
+  <div class="two">
+    <div class="panel"><div class="panel-h"><h2>Bizden istenenler</h2><span class="muted mono" style="font-size:12px">${inc.filter(t=>t.status==="bekliyor").length} onay bekliyor</span></div>
+      <div class="panel-b" style="padding-block:2px">${inc.length?inc.map(t=>card(t,"in")).join(""):`<div class="empty" style="margin:14px 0">${esc(otherStore().name)}'dan gelen talep yok.</div>`}</div></div>
+    <div class="panel"><div class="panel-h"><h2>Bizim isteklerimiz</h2><span class="muted mono" style="font-size:12px">${out.filter(t=>t.status==="yolda").length} yolda</span></div>
+      <div class="panel-b" style="padding-block:2px">${out.length?out.map(t=>card(t,"out")).join(""):`<div class="empty" style="margin:14px 0">Henüz talep yok. Stok ekranındaki “Şubeler” düğmesiyle talep açın.</div>`}</div></div>
+  </div>`;
+  const T=id=>S.transfers.find(t=>t.id===id);
+  v.querySelectorAll("[data-ok]").forEach(b=>b.onclick=()=>{const t=T(b.dataset.ok),s=prod(t.product).stock[t.from];
+    const short=SIZES.filter(z=>t.qty[z]>s[z]);
+    if(short.length){$("#err-"+t.id).innerHTML=`<div class="notice bad">Stok yetmiyor: ${short.map(z=>z+" (elde "+s[z]+")").join(", ")}</div>`;return}
+    SIZES.forEach(z=>s[z]-=t.qty[z]);t.status="yolda";t.log.push(["Onaylandı ve gönderildi · "+me.name,nowStamp()]);save();render();
+    toast(`⇄ <span><b class="mono">${t.id}</b> onaylandı. ${total(t.qty)} adet stoğunuzdan düştü ve yola çıktı.</span>`)});
+  v.querySelectorAll("[data-no]").forEach(b=>b.onclick=()=>{const t=T(b.dataset.no);t.status="red";t.log.push(["Reddedildi · "+me.name,nowStamp()]);save();render();toast(`${t.id} reddedildi`)});
+  v.querySelectorAll("[data-rcv]").forEach(b=>b.onclick=()=>{const t=T(b.dataset.rcv),s=prod(t.product).stock[t.to];
+    SIZES.forEach(z=>s[z]+=t.qty[z]);t.status="tamam";t.log.push(["Teslim alındı · "+me.name,nowStamp()]);save();render();
+    toast(`✓ <span><b class="mono">${t.id}</b> teslim alındı. ${total(t.qty)} adet stoğunuza eklendi.</span>`)});
+  v.querySelectorAll("[data-cancel]").forEach(b=>b.onclick=()=>{S.transfers=S.transfers.filter(t=>t.id!==b.dataset.cancel);save();render();toast("Talep geri çekildi")});
+}
+
+// ---------------- Müşteriler ----------------
+function viewCustomers(v){
+  const all=customers(),q=custQ.toLocaleLowerCase("tr"),qd=custQ.replace(/\D/g,"");
+  const list=all.filter(c=>!q||c.name.toLocaleLowerCase("tr").includes(q)||(qd.length>=3&&(c.phone||"").replace(/\D/g,"").includes(qd)));
+  v.innerHTML=topbar("Müşteriler",`${esc(store().name)} müşterileri. Geçmiş siparişleri ve logoları tek yerde; tek tıkla tekrar sipariş.`)+`
+  <div class="panel"><div class="panel-h"><input class="input" id="cq" placeholder="Ad veya telefon ara" value="${esc(custQ)}" style="max-width:320px"><span class="muted mono" style="font-size:12px">${all.length} müşteri</span></div>
+  <div class="tbl-wrap"><table class="cards orders"><thead><tr><th>Müşteri</th><th>Telefon</th><th>Sipariş</th><th>Toplam parça</th><th>Son sipariş</th><th></th></tr></thead><tbody>
+  ${list.length?list.map((c,i)=>{const last=c.orders[0];return `<tr class="click" data-c="${esc(c.key)}">
+    <td class="o-id"><div style="display:flex;gap:10px;align-items:center">${thumb(last,36,40)}<b>${esc(c.name)}</b></div></td>
+    <td class="mono c-full" data-label="Telefon">${esc(c.phone||"—")}</td>
+    <td class="mono" data-label="Sipariş">${c.orders.length}</td>
+    <td class="mono" data-label="Parça">${c.orders.reduce((a,o)=>a+total(o.qty),0)}</td>
+    <td class="c-full" data-label="Son sipariş"><span class="mono">${last.id}</span> · ${fmtDate(last.created)} · ${KINDS[last.design.kind]} ${PLACES[last.design.place].t.toLocaleLowerCase("tr")}</td>
+    <td class="o-st"><button class="btn sm primary" type="button" data-rep="${last.id}">↻ Tekrar ver</button></td></tr>`}).join(""):`<tr><td colspan="6" class="c-full"><div class="empty">Aramaya uyan müşteri yok.</div></td></tr>`}
+  </tbody></table></div></div>`;
+  const cq=$("#cq");cq.oninput=e=>{custQ=e.target.value;const pos=e.target.selectionStart;viewCustomers(v);const n=$("#cq");n.focus();try{n.setSelectionRange(pos,pos)}catch(_){}};
+  v.querySelectorAll("[data-c]").forEach(r=>r.onclick=e=>{if(e.target.closest("[data-rep]"))return;openCustomer(r.dataset.c)});
+  v.querySelectorAll("[data-rep]").forEach(b=>b.onclick=e=>{e.stopPropagation();repeatOrder(b.dataset.rep)});
+}
+function openCustomer(key){
+  const c=customers().find(x=>x.key===key);if(!c)return;
+  const pcs=c.orders.reduce((a,o)=>a+total(o.qty),0),spent=c.orders.reduce((a,o)=>a+total(o.qty)*prod(o.productId).price,0);
+  const designs=[];const seenD=new Set();c.orders.forEach(o=>{const k=o.design.kind+o.design.text+o.design.place+o.productId;if(!seenD.has(k)){seenD.add(k);designs.push(o)}});
+  drawer("Müşteri kartı",`<div class="drawer-h"><div><div class="eyebrow">Müşteri kartı · ${esc(store().name)}</div><h2>${esc(c.name)}</h2>${c.phone?`<div class="mono muted" style="margin-top:4px">${esc(c.phone)}</div>`:""}</div><button class="x" id="cls" type="button" aria-label="Kapat">×</button></div>
+    <div class="stack">
+      <div class="kpis" style="grid-template-columns:repeat(3,minmax(0,1fr));margin:0">
+        <div class="panel kpi"><div class="eyebrow">Sipariş</div><div class="v">${c.orders.length}</div></div>
+        <div class="panel kpi"><div class="eyebrow">Parça</div><div class="v">${pcs}</div></div>
+        <div class="panel kpi"><div class="eyebrow">Toplam</div><div class="v" style="font-size:20px">${fmtTL(spent)}</div></div>
+      </div>
+      <div><h3 style="margin-bottom:10px">Kayıtlı baskılar</h3><div class="cust-logos">${designs.map(o=>`<div title="${esc(KINDS[o.design.kind]+" · "+PLACES[o.design.place].t)}">${thumb(o,70,78)}</div>`).join("")}</div></div>
+      <div><h3 style="margin-bottom:6px">Sipariş geçmişi</h3>${c.orders.map(o=>{const p=prod(o.productId);return `<div class="list-row">${thumb(o)}
+        <div class="grow"><b>${o.id} · ${fmtDate(o.created)}</b><span class="muted" style="font-size:13px">${total(o.qty)} × ${esc(p.name)} ${esc(p.color)} · ${KINDS[o.design.kind]} ${PLACES[o.design.place].t.toLocaleLowerCase("tr")}</span></div>
+        <div style="display:grid;gap:6px;justify-items:end">${chip(o.status)}<button class="btn sm" type="button" data-rep="${o.id}">↻ Tekrar ver</button></div></div>`}).join("")}</div>
+    </div>`);
+  $("#layer").querySelectorAll("[data-rep]").forEach(b=>b.onclick=()=>repeatOrder(b.dataset.rep));
+}
+function draftFrom(o){
+  const d=newDraft();
+  Object.assign(d,{customer:o.customer,phone:o.phone,productId:o.productId,qty:{...o.qty},kind:o.design.kind,place:o.design.place,tech:o.design.tech,cm:o.design.cm,text:o.design.text,ink:o.design.ink,file:o.design.file,fileName:o.design.fileName,note:o.note,side:PLACES[o.design.place].side,repeatOf:o.id});
+  return d;
+}
+function repeatOrder(id){
+  const o=S.orders.find(x=>x.id===id&&x.store===curStore());if(!o)return;
+  draft=draftFrom(o);closeLayer();go("yeni-siparis");
+  toast(`↻ <span><b class="mono">${o.id}</b> kopyalandı. Bedenleri ve tarihi kontrol edip kaydedin.</span>`);
+}
+
+// ---------------- Siparişler ----------------
 function viewOrders(v){
-  const tabs={all:"Tümü",acik:"Açık",...Object.fromEntries(FLOW.map(s=>[s,STATUS[s].short]))};
-  const list=myOrders().filter(o=>orderFilter==="all"||(orderFilter==="acik"?o.status!=="teslim":o.status===orderFilter));
+  const tabs={all:"Tümü",acik:"Açık",dikkat:"Dikkat",...Object.fromEntries(FLOW.map(s=>[s,STATUS[s].short]))};
+  const list=myOrders().filter(o=>orderFilter==="all"||(orderFilter==="acik"?o.status!=="teslim":orderFilter==="dikkat"?(o.hold||unreadOf(o)):o.status===orderFilter));
   v.innerHTML=topbar("Siparişler",`${esc(store().name)} siparişleri. Her sipariş baskı detaylarıyla ${esc(store().ws)}'ye iletilir.`,`<a class="btn primary" href="#yeni-siparis">+ Yeni sipariş</a>`)+`
-  <div class="panel"><div class="panel-h"><div class="seg" id="otabs">${Object.entries(tabs).map(([k,l])=>`<button type="button" data-k="${k}" class="${orderFilter===k?"on":""}">${l}</button>`).join("")}</div></div>
+  <div class="panel"><div class="panel-h"><div class="seg" id="otabs">${Object.entries(tabs).map(([k,l])=>`<button type="button" data-k="${k}" class="${orderFilter===k?"on":""}">${l}${k==="dikkat"&&ordersNeedingMe().length?` · ${ordersNeedingMe().length}`:""}</button>`).join("")}</div></div>
   <div class="tbl-wrap"><table class="cards orders"><thead><tr><th>Sipariş</th><th>Müşteri</th><th>Ürün</th><th>Adet</th><th>Baskı</th><th>Teslim</th><th>Durum</th></tr></thead><tbody>
   ${list.length?list.map(o=>{const p=prod(o.productId),d=daysLeft(o.due);return `<tr class="click" data-open="${o.id}">
     <td class="mono o-id" style="color:var(--accent);font-weight:600">${o.id}</td><td class="c-full"><b>${esc(o.customer)}</b></td>
     <td class="c-full" data-label="Ürün" style="white-space:nowrap"><span class="swatch" style="background:${p.hex}"></span> ${esc(p.name)}</td>
     <td class="mono c-full" data-label="Adet" style="white-space:nowrap">${total(o.qty)} <span class="muted">(${qtyText(o.qty)})</span></td>
     <td data-label="Baskı" style="white-space:nowrap">${KINDS[o.design.kind]} · ${PLACES[o.design.place].t}<br><span class="muted" style="font-size:12.5px">${o.design.tech} · ${o.design.cm} cm</span></td>
-    <td data-label="Teslim"><span class="due ${d<=1&&o.status!=="teslim"&&o.status!=="hazir"?"late":""}">${fmtDate(o.due)}</span></td><td class="o-st">${chip(o.status)}</td></tr>`}).join(""):`<tr><td colspan="7" class="c-full"><div class="empty">Bu durumda sipariş yok.</div></td></tr>`}
+    <td data-label="Teslim"><span class="due ${d<=1&&o.status!=="teslim"&&o.status!=="hazir"?"late":""}">${fmtDate(o.due)}</span></td>
+    <td class="o-st"><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">${mBadge(o)}${o.hold?holdChip(o):chip(o.status)}</div></td></tr>`}).join(""):`<tr><td colspan="7" class="c-full"><div class="empty">Bu filtrede sipariş yok.</div></td></tr>`}
   </tbody></table></div></div>`;
   v.querySelectorAll("#otabs button").forEach(b=>b.onclick=()=>{orderFilter=b.dataset.k;viewOrders(v)});
   v.querySelectorAll("[data-open]").forEach(el=>el.onclick=()=>openOrder(el.dataset.open));
 }
 
-function newDraft(){return {store:curStore(),customer:"",phone:"",productId:"p1",qty:{S:0,M:0,L:0,XL:0,XXL:0},kind:"logo",place:"gogus-sol",tech:"DTF baskı",cm:9,text:"",ink:"#1F2B4D",file:null,fileName:null,due:day(7),note:"",side:"on"}}
+// ---------------- Yeni sipariş ----------------
+function newDraft(){return {store:curStore(),customer:"",phone:"",productId:"p1",qty:{S:0,M:0,L:0,XL:0,XXL:0},kind:"logo",place:"gogus-sol",tech:"DTF baskı",cm:9,text:"",ink:"#1F2B4D",file:null,fileName:null,due:day(7),note:"",side:"on",repeatOf:null}}
 function viewNew(v){
   if(!draft||draft.store!==curStore()) draft=newDraft();
-  const d=draft,st=store();
+  const d=draft,st=store(),ot=otherStore();
   const groups={};S.products.forEach(p=>{(groups[p.name]=groups[p.name]||[]).push(p)});
   v.innerHTML=topbar("Yeni sipariş",`Ürünü, bedenleri ve baskı detayını girin. Kaydedince ${esc(st.name)} stoğu düşer, iş emri ${esc(st.ws)}'ye gider.`)+`
+  ${d.repeatOf?`<div class="repeat"><span>↻ ${d.repeatOf} siparişinden kopyalandı: ürün, bedenler, logo ve baskı ayarları hazır.</span><button class="btn sm" type="button" id="clr">Boş forma dön</button></div>`:""}
   <form id="of" class="order-layout" novalidate>
     <div class="stack">
       <div class="panel"><div class="panel-b stack">
         <div class="section-t"><span class="n">1</span><h2>Müşteri</h2></div>
         <div class="row">
-          <div class="field"><label for="cust">Müşteri / firma adı</label><input class="input" id="cust" required placeholder="Örn. Kuzey Kafe" value="${esc(d.customer)}"></div>
-          <div class="field"><label for="phone">Telefon</label><input class="input" id="phone" inputmode="tel" placeholder="05xx xxx xx xx" value="${esc(d.phone)}"></div>
+          <div class="field"><label for="cust">Müşteri / firma adı</label><input class="input" id="cust" required placeholder="Örn. Kuzey Kafe" value="${esc(d.customer)}" autocomplete="off"></div>
+          <div class="field"><label for="phone">Telefon</label><input class="input" id="phone" inputmode="tel" placeholder="05xx xxx xx xx" value="${esc(d.phone)}" autocomplete="off"></div>
         </div>
+        <div id="custhint" class="hints"></div>
       </div></div>
       <div class="panel"><div class="panel-b stack">
         <div class="section-t"><span class="n">2</span><h2>Ürün ve beden</h2></div>
@@ -745,6 +969,18 @@ function viewNew(v){
   </form>`;
   const P=()=>prod(d.productId);
   const preview=()=>garment(P(),{kind:d.kind,place:d.place,cm:d.cm,text:d.text,ink:d.ink,file:d.file},d.side,{guide:true});
+  const clr=$("#clr");if(clr)clr.onclick=()=>{draft=newDraft();viewNew(v)};
+  function hints(){
+    const box=$("#custhint"),n=d.customer.trim().toLocaleLowerCase("tr"),ph=d.phone.replace(/\D/g,"");
+    if(d.repeatOf||(n.length<2&&ph.length<4)){box.innerHTML="";return}
+    const m=customers().filter(c=>(n.length>=2&&c.name.toLocaleLowerCase("tr").includes(n))||(ph.length>=4&&(c.phone||"").replace(/\D/g,"").includes(ph))).slice(0,3);
+    const exact=m.find(c=>c.name===d.customer.trim()&&(c.phone||"")===d.phone.trim());
+    box.innerHTML=m.map(c=>{const last=c.orders[0],p=prod(last.productId);return exact===c
+      ?`<div class="hint"><span style="font-size:18px">↻</span><span class="grow"><b>Kayıtlı müşteri · ${c.orders.length} sipariş</b><span>Son: ${last.id} · ${total(last.qty)} × ${esc(p.name)} ${esc(p.color)} · ${KINDS[last.design.kind]} ${PLACES[last.design.place].t.toLocaleLowerCase("tr")}</span></span><button class="btn sm primary" type="button" data-rep="${last.id}">Son siparişi tekrarla</button></div>`
+      :`<button type="button" class="hint" data-pick="${esc(c.key)}"><span class="av" style="width:30px;height:30px;font-size:12px">${esc(initials(c.name))}</span><span class="grow"><b>${esc(c.name)}</b><span>${esc(c.phone||"")} · ${c.orders.length} sipariş · son ${fmtDate(last.created)}</span></span><span class="muted" style="font-size:12.5px">Seç</span></button>`}).join("");
+    box.querySelectorAll("[data-pick]").forEach(b=>b.onclick=()=>{const c=customers().find(x=>x.key===b.dataset.pick);d.customer=c.name;d.phone=c.phone||"";$("#cust").value=d.customer;$("#phone").value=d.phone;hints();update()});
+    box.querySelectorAll("[data-rep]").forEach(b=>b.onclick=()=>{draft=draftFrom(S.orders.find(o=>o.id===b.dataset.rep));viewNew(v);toast("↻ Son sipariş forma kopyalandı")});
+  }
   function sizes(){
     const s=stk(P());
     $("#sizes").innerHTML=SIZES.map(z=>`<div class="s ${(+d.qty[z]||0)>s[z]?"over":""}"><b>${z}</b><input id="q-${z}" type="number" min="0" inputmode="numeric" value="${d.qty[z]||0}" data-z="${z}" aria-label="${z} adet"><small>stok ${s[z]}</small></div>`).join("");
@@ -756,29 +992,35 @@ function viewNew(v){
       fb.innerHTML=`<div class="field"><label for="txt">Basılacak yazı</label><input class="input" id="txt" maxlength="24" placeholder="Örn. ATLAS SK" value="${esc(d.text)}"></div>`;
       $("#txt").oninput=e=>{d.text=e.target.value;update()};
     }else{
-      fb.innerHTML=`<div class="drop ${d.file?"has":""}">
-        ${d.file?`<img src="${d.file}" alt="Yüklenen tasarım">`:`<div style="width:44px;height:44px;border-radius:8px;background:var(--surface);display:grid;place-items:center;color:var(--muted);flex:none">⬆</div>`}
-        <div style="flex:1;min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${d.file?esc(d.fileName):(d.kind==="logo"?"Logo dosyası yükleyin":"Desen dosyası yükleyin")}</b><span class="muted" style="font-size:12.5px">PNG, JPG veya SVG · şeffaf arka plan önerilir</span></div>
-        <label class="btn sm" for="file">${d.file?"Değiştir":"Dosya seç"}</label><input id="file" type="file" accept="image/*" hidden>
-      </div>${!d.file?`<div class="field" style="margin-top:10px"><label for="mk">Dosya yoksa örnek işaret için kısa ad</label><input class="input" id="mk" maxlength="14" placeholder="Örn. KUZEY" value="${esc(d.text)}"></div>`:""}`;
+      fb.innerHTML=`<div class="drop ${d.file||d.fileName?"has":""}">
+        ${d.file?`<img src="${d.file}" alt="Yüklenen tasarım">`:`<div style="width:44px;height:44px;border-radius:8px;background:var(--surface);display:grid;place-items:center;color:var(--muted);flex:none">${d.fileName?"📎":"⬆"}</div>`}
+        <div style="flex:1;min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${d.fileName?esc(d.fileName):(d.kind==="logo"?"Logo dosyası yükleyin":"Desen dosyası yükleyin")}</b><span class="muted" style="font-size:12.5px">${d.fileName&&d.repeatOf?"Önceki siparişteki dosya kullanılacak":"PNG, JPG veya SVG · şeffaf arka plan önerilir"}</span></div>
+        <label class="btn sm" for="file">${d.file||d.fileName?"Değiştir":"Dosya seç"}</label><input id="file" type="file" accept="image/*" hidden>
+      </div>${!d.file?`<div class="field" style="margin-top:10px"><label for="mk">Önizleme için kısa ad</label><input class="input" id="mk" maxlength="14" placeholder="Örn. KUZEY" value="${esc(d.text)}"></div>`:""}`;
       $("#file").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{d.file=r.result;d.fileName=f.name;filebox();update()};r.readAsDataURL(f)};
       const mk=$("#mk");if(mk)mk.oninput=e=>{d.text=e.target.value;update()};
     }
   }
   function update(){
-    const p=P(),s=stk(p),pl=PLACES[d.place];
+    const p=P(),s=stk(p),pl=PLACES[d.place],os=p.stock[ot.id];
     if(pl.side!==d.side){d.side=pl.side;$("#side").querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.v===d.side))}
     if(+d.cm>pl.max){d.cm=pl.max;$("#cm").value=pl.max}
     $("#stage").innerHTML=preview();
     const n=total(d.qty);
-    $("#spec").innerHTML=`<dt>Ürün</dt><dd>${esc(p.name)} · ${esc(p.color)}</dd><dt>Adet</dt><dd class="mono">${n?n+" ("+qtyText(d.qty)+")":"—"}</dd><dt>Baskı</dt><dd>${KINDS[d.kind]} · ${pl.t}</dd><dt>Teknik</dt><dd>${esc(d.tech)} · ${d.cm} cm</dd><dt>Tutar</dt><dd class="mono">${fmtTL(n*p.price)}</dd>`;
+    $("#spec").innerHTML=`<dt>Müşteri</dt><dd>${esc(d.customer||"—")}</dd><dt>Ürün</dt><dd>${esc(p.name)} · ${esc(p.color)}</dd><dt>Adet</dt><dd class="mono">${n?n+" ("+qtyText(d.qty)+")":"—"}</dd><dt>Baskı</dt><dd>${KINDS[d.kind]} · ${pl.t}</dd><dt>Teknik</dt><dd>${esc(d.tech)} · ${d.cm} cm</dd><dt>Tutar</dt><dd class="mono">${fmtTL(n*p.price)}</dd>`;
     const over=SIZES.filter(z=>(+d.qty[z]||0)>s[z]);
-    $("#stockmsg").innerHTML=over.length?`<div class="notice bad">${esc(st.name)} stoğu yetersiz: ${over.map(z=>z+" (en fazla "+s[z]+")").join(", ")}</div>`:n?`<div class="notice ok">✓ Tüm bedenler ${esc(st.name)} stoğunda mevcut. Kayıtta ${n} adet düşülecek.</div>`:"";
+    if(over.length){
+      const need=Object.fromEntries(SIZES.map(z=>[z,Math.max(0,(+d.qty[z]||0)-s[z])]));
+      const canAll=over.every(z=>os[z]>=need[z]);
+      $("#stockmsg").innerHTML=`<div class="notice bad">${esc(st.name)} stoğu yetersiz: ${over.map(z=>z+" (eksik "+need[z]+")").join(", ")}</div>
+        <div class="hint" style="border-color:${canAll?"var(--ok)":"var(--warn)"};background:${canAll?"var(--ok-soft)":"var(--warn-soft)"};margin-top:8px"><span style="font-size:18px">⇄</span><span class="grow"><b style="color:${canAll?"var(--ok)":"var(--warn)"}">${esc(ot.name)}'da: ${over.map(z=>z+" "+os[z]+" adet").join(" · ")}</b><span>${canAll?"Eksik adetleri diğer şubeden isteyebilirsiniz.":"Diğer şubede de yeterli stok yok; bulunanı isteyebilirsiniz."}</span></span><button class="btn sm primary" type="button" id="reqtr">Eksiği iste</button></div>`;
+      $("#reqtr").onclick=()=>{const pre=Object.fromEntries(SIZES.map(z=>[z,Math.min(need[z],os[z])]));pre._note=(d.customer?d.customer+" siparişi için":"Sipariş için")+" eksik bedenler";openBranch(p.id,pre)};
+    }else $("#stockmsg").innerHTML=n?`<div class="notice ok">✓ Tüm bedenler ${esc(st.name)} stoğunda mevcut. Kayıtta ${n} adet düşülecek.</div>`:"";
     $("#send").disabled=!n||over.length>0;
   }
-  sizes();filebox();update();
-  $("#cust").oninput=e=>{d.customer=e.target.value;e.target.style.borderColor=""};
-  $("#phone").oninput=e=>d.phone=e.target.value;
+  sizes();filebox();update();hints();
+  $("#cust").oninput=e=>{d.customer=e.target.value;e.target.style.borderColor="";hints();update()};
+  $("#phone").oninput=e=>{d.phone=e.target.value;hints()};
   $("#prod").onchange=e=>{d.productId=e.target.value;sizes();update()};
   $("#kind").querySelectorAll("button").forEach(b=>b.onclick=()=>{d.kind=b.dataset.v;$("#kind").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));filebox();update()});
   $("#place").querySelectorAll("button").forEach(b=>b.onclick=()=>{d.place=b.dataset.v;$("#place").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));update()});
@@ -797,33 +1039,106 @@ function viewNew(v){
     const id="ARM-"+(S.seq[st.id]++);
     const o={id,store:st.id,customer:d.customer.trim(),phone:d.phone.trim(),productId:p.id,qty:{...d.qty},
       design:{kind:d.kind,place:d.place,tech:d.tech,cm:+d.cm,text:d.text,ink:d.ink,file:d.file,fileName:d.kind==="yazi"?null:(d.fileName||((d.text||"logo").toLowerCase().replace(/[^a-z0-9]+/g,"_")+".png"))},
-      status:"yeni",created:day(0),due:d.due,note:d.note.trim(),history:[["yeni",nowStamp()]]};
+      status:"yeni",created:day(0),due:d.due,note:d.note.trim(),history:[["yeni",nowStamp()]],messages:[],unread:{store:0,ws:0},hold:null};
+    if(d.repeatOf)o.messages.push({sys:true,text:`${d.repeatOf} siparişinin tekrarı · aynı dosya ve baskı ayarları`,at:nowStamp()});
     S.orders.unshift(o);S.sales[st.id][6]+=total(o.qty);save();draft=null;
     toast(`🔔 <span><b class="mono">${id}</b> ${esc(st.ws)}'ye iletildi · ${total(o.qty)} adet stoktan düşüldü</span>`);
     go("siparisler");setTimeout(()=>openOrder(id),150);
   };
 }
 
+// ---------------- Atölye ----------------
 function viewWorkshop(v){
   const cols=["yeni","baskida","kalite","hazir"],shop=mode()==="shop",st=store(),orders=myOrders();
   v.innerHTML=topbar(shop?"İş emirleri":st.ws+" durumu",
-    shop?`${esc(st.name)}'dan gelen siparişler. Kartı açıp baskı detayını görün, durumu ilerletin.`:`${esc(st.ws)}'nin canlı görünümü. Durum değişiklikleri buraya anında yansır.`)+`
+    shop?`${esc(st.name)}'dan gelen siparişler. Sorun varsa kartı açıp “Sorun bildir” deyin; mağaza anında görür.`:`${esc(st.ws)}'nin canlı görünümü. Durum değişiklikleri buraya anında yansır.`)+`
   <div class="kanban">${cols.map(s=>{const list=orders.filter(o=>o.status===s);return `
     <section class="col"><div class="col-h"><span class="chip st-${s}">${STATUS[s].t}</span><span class="c">${list.length}</span></div>
     ${list.length?list.map(o=>{const p=prod(o.productId),d=daysLeft(o.due),fresh=s==="yeni"&&!S.seen.includes(o.id);return `
-      <article class="job ${fresh&&shop?"fresh":""}">
-        <div class="job-top"><div class="job-thumb">${garment(p,o.design,PLACES[o.design.place].side)}</div>
-          <div style="min-width:0"><div class="id">${o.id}${fresh&&shop?' <span class="chip st-yeni" style="padding:2px 7px;font-size:10.5px">Yeni</span>':""}</div><div class="t">${esc(o.customer)}</div>
+      <article class="job ${fresh&&shop?"fresh":""} ${o.hold?"held":""}">
+        <div class="job-top">${thumb(o,64,72)}
+          <div style="min-width:0"><div class="id">${o.id}${fresh&&shop?' <span class="chip st-yeni" style="padding:2px 7px;font-size:10.5px">Yeni</span>':""} ${mBadge(o)}</div><div class="t">${esc(o.customer)}</div>
           <div class="m">${total(o.qty)} × ${esc(p.name)} · ${esc(p.color)}</div></div></div>
         <div class="m">${KINDS[o.design.kind]} · ${PLACES[o.design.place].t} · ${o.design.tech} · ${o.design.cm} cm</div>
+        ${o.hold?`<div class="hold">⚠ <span>Beklemede: ${esc(o.hold.reason)}</span></div>`:""}
         <span class="due ${d<=1&&s!=="hazir"?"late":""}">Teslim ${fmtDate(o.due)}${d<0?" · gecikti":d===0?" · bugün":d===1?" · yarın":""}</span>
-        <div class="job-acts"><button class="btn sm" type="button" data-open="${o.id}">Detay</button>${shop?`<button class="btn sm primary" type="button" data-adv="${o.id}">${s==="hazir"?"Teslim et":"→ "+STATUS[FLOW[FLOW.indexOf(s)+1]].short}</button>`:""}</div>
+        <div class="job-acts"><button class="btn sm" type="button" data-open="${o.id}">Detay</button>${shop?`<button class="btn sm primary" type="button" data-adv="${o.id}" ${o.hold?"disabled title=\"Sorun çözülünce ilerletebilirsiniz\"":""}>${s==="hazir"?"Teslim et":"→ "+STATUS[FLOW[FLOW.indexOf(s)+1]].short}</button>`:""}</div>
       </article>`}).join(""):`<div class="empty">Bu aşamada iş yok.</div>`}</section>`}).join("")}</div>
   ${shop?"":`<p class="muted" style="font-size:12.5px;margin-top:12px">Mağaza tarafı yalnızca izler; durumu ${esc(st.ws)} ustası ilerletir.</p>`}`;
   v.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>openOrder(b.dataset.open));
   v.querySelectorAll("[data-adv]").forEach(b=>b.onclick=()=>advance(b.dataset.adv));
 }
 
+function advance(id){
+  const o=S.orders.find(x=>x.id===id&&x.store===curStore());if(!o||o.hold)return;const i=FLOW.indexOf(o.status);if(i>=FLOW.length-1)return;
+  o.status=FLOW[i+1];o.history.push([o.status,nowStamp()]);if(!S.seen.includes(id))S.seen.push(id);save();
+  toast(`✓ <span><b class="mono">${id}</b> → ${STATUS[o.status].t}. ${esc(store().name)} bilgilendirildi.</span>`);
+  const open=!!$("#layer").innerHTML;render();if(open)openOrder(id);
+}
+function postMsg(o,text,extra={}){
+  const sd=side();o.messages.push({side:sd,name:me.name,text,at:nowStamp(),...extra});
+  o.unread=o.unread||{store:0,ws:0};o.unread[sd==="store"?"ws":"store"]++;
+}
+
+function openOrder(id,opt={}){
+  const o=S.orders.find(x=>x.id===id&&x.store===curStore());if(!o)return;
+  const p=prod(o.productId),shop=mode()==="shop",sd=side(),st=store();
+  if(shop&&!S.seen.includes(id))S.seen.push(id);
+  if(o.unread&&o.unread[sd]){o.unread[sd]=0;}
+  save();renderNav();
+  const pl=PLACES[o.design.place],cur=FLOW.indexOf(o.status),histMap=Object.fromEntries(o.history),showPrice=me.role!=="ws";
+  const other=sd==="store"?st.ws:st.name;
+  drawer(o.id+" detayı",`<div class="drawer-h"><div><div class="eyebrow">${shop?"İş emri · "+esc(st.ws):"Sipariş · "+esc(st.name)}</div><h2 class="mono" style="font-size:24px;color:var(--accent)">${o.id}</h2><div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">${chip(o.status)}${holdChip(o)}</div></div><button class="x" id="cls" type="button" aria-label="Kapat">×</button></div>
+    <div class="stack">
+      ${o.hold?`<div class="issue-box"><div><b>⚠ Atölye sorun bildirdi: ${esc(o.hold.reason)}</b><div class="muted" style="font-size:12.5px;margin-top:2px">${esc(o.hold.by)} · ${o.hold.at} · İş, sorun çözülene kadar beklemede.</div></div>
+        ${sd==="store"?`<div style="display:flex;gap:8px;flex-wrap:wrap"><label class="btn sm" for="refile">📎 Yeni dosya yükle</label><input id="refile" type="file" accept="image/*" hidden><button class="btn sm primary" type="button" id="resolve">Sorun çözüldü, atölyeye bildir</button></div><p class="muted" style="font-size:12.5px">Önce aşağıdan cevabınızı yazın; “Sorun çözüldü” deyince mesajınızla birlikte iş atölyede yeniden açılır.</p>`:`<p class="muted" style="font-size:12.5px">${esc(st.name)} cevap verince burada görürsünüz.</p>`}</div>`:""}
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+        <div class="garment-stage">${garment(p,o.design,"on",{guide:pl.side==="on"})}<span class="eyebrow" style="position:absolute;top:10px;left:12px">Ön</span></div>
+        <div class="garment-stage">${garment(p,o.design,"arka",{guide:pl.side==="arka"})}<span class="eyebrow" style="position:absolute;top:10px;left:12px">Arka</span></div>
+      </div>
+      <div class="panel"><div class="panel-b"><dl class="spec">
+        <dt>Müşteri</dt><dd>${esc(o.customer)}</dd>
+        ${o.phone&&showPrice?`<dt>Telefon</dt><dd class="mono">${esc(o.phone)}</dd>`:""}
+        <dt>Ürün</dt><dd>${esc(p.name)} · <span class="swatch" style="background:${p.hex}"></span> ${esc(p.color)}</dd>
+        <dt>Beden / adet</dt><dd class="mono">${qtyText(o.qty)} = ${total(o.qty)}</dd>
+        <dt>Baskı türü</dt><dd>${KINDS[o.design.kind]}${o.design.kind==="yazi"?` · “${esc(o.design.text)}”`:""}</dd>
+        <dt>Konum</dt><dd>${pl.t} · ${o.design.cm} cm genişlik</dd>
+        <dt>Teknik</dt><dd>${esc(o.design.tech)}</dd>
+        <dt>Baskı rengi</dt><dd class="mono"><span class="swatch" style="background:${o.design.ink}"></span> ${o.design.ink.toUpperCase()}</dd>
+        ${o.design.fileName?`<dt>Dosya</dt><dd class="mono">📎 ${esc(o.design.fileName)}</dd>`:""}
+        <dt>Teslim</dt><dd>${fmtDate(o.due)}</dd>
+        ${showPrice?`<dt>Tutar</dt><dd class="mono">${fmtTL(total(o.qty)*p.price)}</dd>`:""}
+      </dl>
+      ${o.note?`<div class="notice" style="margin-top:14px;background:var(--warn-soft);color:var(--warn)">Not: ${esc(o.note)}</div>`:""}</div></div>
+      <div><h3 style="margin-bottom:10px">Mesajlar <span class="muted" style="font-weight:500;font-size:13px">· ${esc(st.name)} ↔ ${esc(st.ws)}</span></h3>
+        <div class="thread" id="thread">${o.messages.length?o.messages.map(m=>m.sys?`<div class="msg sys">${esc(m.text)} · ${m.at}</div>`:`<div class="msg ${m.side===sd?"mine":""} ${m.issue?"issue":""}"><div class="mh"><b>${esc(m.name)}</b> · ${m.side==="ws"?esc(st.ws):esc(st.name)} · ${m.at}</div>${m.issue?"<b style=\"color:var(--bad)\">Sorun bildirimi</b><br>":""}${esc(m.text)}</div>`).join(""):`<p class="muted" style="font-size:13px">Henüz mesaj yok. Soru veya değişiklik için ${esc(other)}'ye buradan yazın; mesaj siparişle birlikte saklanır.</p>`}</div>
+        <form class="msg-form" id="mf" style="margin-top:10px"><textarea class="input" id="mt" rows="2" placeholder="${esc(other)}'ye mesaj yazın"></textarea><button class="btn primary" type="submit">Gönder</button></form>
+      </div>
+      ${shop&&!o.hold&&o.status!=="teslim"?`<div id="repbox"><button class="btn" type="button" id="rep" style="width:100%;border-color:var(--bad);color:var(--bad)">⚠ Sorun bildir</button></div>`:""}
+      <div><h3 style="margin-bottom:10px">Süreç</h3><div class="timeline">${FLOW.map((s,i)=>{const done=i<cur||o.status==="teslim";return `<div class="tl ${done?"done":i===cur?"cur":""}"><div class="dot">${done?"✓":""}</div><div><b>${STATUS[s].t}</b><small>${histMap[s]||"Bekliyor"}</small></div></div>`}).join("")}</div></div>
+      ${shop&&o.status!=="teslim"?`<button class="btn primary" type="button" id="adv" ${o.hold?"disabled":""}>${o.hold?"Sorun çözülünce ilerletebilirsiniz":o.status==="hazir"?"Teslim edildi olarak işaretle":"Durumu ilerlet → "+STATUS[FLOW[cur+1]].t}</button>`:""}
+      ${!shop?`<button class="btn" type="button" id="again">↻ Bu siparişi tekrar ver</button>`:""}
+    </div>`);
+  const reopen=()=>{render();openOrder(id)};
+  $("#mf").onsubmit=e=>{e.preventDefault();const t=$("#mt").value.trim();if(!t)return;postMsg(o,t);save();reopen();toast(`💬 Mesaj ${esc(other)}'ye iletildi`)};
+  const a=$("#adv");if(a)a.onclick=()=>advance(id);
+  const ag=$("#again");if(ag)ag.onclick=()=>repeatOrder(id);
+  const rp=$("#rep");if(rp)rp.onclick=()=>{
+    let reason=ISSUES[0];
+    $("#repbox").innerHTML=`<div class="issue-box"><b>Sorun bildir</b><div class="seg" id="rs">${ISSUES.map((r,i)=>`<button type="button" data-v="${i}" class="${i===0?"on":""}">${r}</button>`).join("")}</div>
+      <textarea class="input" id="rt" rows="2" placeholder="Kısaca açıklayın: örn. logo 72 dpi, baskıda bulanık çıkar"></textarea>
+      <div style="display:flex;gap:8px"><button class="btn primary" type="button" id="rsend">${esc(st.name)}'ya bildir ve işi beklet</button><button class="btn" type="button" id="rcancel">Vazgeç</button></div></div>`;
+    $("#rs").querySelectorAll("button").forEach(b=>b.onclick=()=>{reason=ISSUES[+b.dataset.v];$("#rs").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b))});
+    $("#rcancel").onclick=()=>openOrder(id);
+    $("#rsend").onclick=()=>{const t=$("#rt").value.trim()||reason;o.hold={reason,by:me.name,at:nowStamp()};postMsg(o,t,{issue:true});save();reopen();toast(`⚠ <span>Sorun ${esc(st.name)}'ya bildirildi. <b class="mono">${id}</b> beklemede.</span>`)};
+  };
+  const rs=$("#resolve");if(rs)rs.onclick=()=>{const t=$("#mt").value.trim();o.hold=null;postMsg(o,t?("Sorun çözüldü: "+t):"Sorun çözüldü, işe devam edebilirsiniz.");save();reopen();toast(`✓ <span><b class="mono">${id}</b> atölyede yeniden açıldı</span>`)};
+  const rf=$("#refile");if(rf)rf.onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{o.design.file=r.result;o.design.fileName=f.name;o.messages.push({sys:true,text:`Yeni dosya yüklendi: ${f.name}`,at:nowStamp()});o.unread.ws++;save();reopen();toast("📎 Yeni dosya siparişe eklendi")};r.readAsDataURL(f)};
+  if(opt.focusMsg){const mt=$("#mt");if(mt)mt.focus()}
+  const th=$("#thread");if(th&&o.messages.length)th.lastElementChild.scrollIntoView({block:"nearest"});
+}
+
+// ---------------- Kullanıcılar ----------------
 function viewUsers(v){
   const list=S.users.slice().sort((a,b)=>({admin:0,store:1,ws:2}[a.role]-{admin:0,store:1,ws:2}[b.role])||String(a.store).localeCompare(String(b.store)));
   v.innerHTML=topbar("Kullanıcılar","Her çalışan kendi kullanıcı adıyla girer ve yalnızca bağlı olduğu mağazayı veya atölyeyi görür.")+`
@@ -843,7 +1158,7 @@ function viewUsers(v){
           <div class="field"><label for="upw">Şifre</label><input class="input mono" id="upw" required placeholder="En az 4 karakter"></div>
         </div>
         <div class="field"><span class="lbl">Rol</span><div class="seg" id="urole"><button type="button" data-v="store" class="on">Mağaza personeli</button><button type="button" data-v="ws">Atölye ustası</button><button type="button" data-v="admin">Yönetici</button></div></div>
-        <div class="field" id="ustore-f"><label for="ustore">Bağlı olduğu yer</label><select class="input" id="ustore">${S.stores.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join("")}</select></div>
+        <div class="field" id="ustore-f"><label for="ustore">Bağlı olduğu yer</label><select class="input" id="ustore"></select></div>
         <div id="uerr"></div>
         <button class="btn primary" type="submit">Kullanıcıyı ekle</button>
       </form></div>
@@ -868,44 +1183,11 @@ function viewUsers(v){
   });
 }
 
-function advance(id){
-  const o=S.orders.find(x=>x.id===id&&x.store===curStore());if(!o)return;const i=FLOW.indexOf(o.status);if(i>=FLOW.length-1)return;
-  o.status=FLOW[i+1];o.history.push([o.status,nowStamp()]);if(!S.seen.includes(id))S.seen.push(id);save();
-  toast(`✓ <span><b class="mono">${id}</b> → ${STATUS[o.status].t}. ${esc(store().name)} bilgilendirildi.</span>`);
-  const open=!!$("#layer").innerHTML;render();if(open)openOrder(id);
-}
-
-function openOrder(id){
-  const o=S.orders.find(x=>x.id===id&&x.store===curStore());if(!o)return;
-  const p=prod(o.productId),shop=mode()==="shop";
-  if(shop&&!S.seen.includes(id)){S.seen.push(id);save();renderNav()}
-  const pl=PLACES[o.design.place],cur=FLOW.indexOf(o.status),histMap=Object.fromEntries(o.history),showPrice=me.role!=="ws";
-  $("#layer").innerHTML=`<div class="scrim" id="scrim"></div><aside class="drawer" role="dialog" aria-label="${o.id} detayı">
-    <div class="drawer-h"><div><div class="eyebrow">${shop?"İş emri · "+esc(store().ws):"Sipariş · "+esc(store().name)}</div><h2 class="mono" style="font-size:24px;color:var(--accent)">${o.id}</h2><div style="margin-top:6px">${chip(o.status)}</div></div><button class="x" id="cls" type="button" aria-label="Kapat">×</button></div>
-    <div class="stack">
-      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
-        <div class="garment-stage">${garment(p,o.design,"on",{guide:pl.side==="on"})}<span class="eyebrow" style="position:absolute;top:10px;left:12px">Ön</span></div>
-        <div class="garment-stage">${garment(p,o.design,"arka",{guide:pl.side==="arka"})}<span class="eyebrow" style="position:absolute;top:10px;left:12px">Arka</span></div>
-      </div>
-      <div class="panel"><div class="panel-b"><dl class="spec">
-        <dt>Müşteri</dt><dd>${esc(o.customer)}</dd>
-        ${o.phone&&showPrice?`<dt>Telefon</dt><dd class="mono">${esc(o.phone)}</dd>`:""}
-        <dt>Ürün</dt><dd>${esc(p.name)} · <span class="swatch" style="background:${p.hex}"></span> ${esc(p.color)}</dd>
-        <dt>Beden / adet</dt><dd class="mono">${qtyText(o.qty)} = ${total(o.qty)}</dd>
-        <dt>Baskı türü</dt><dd>${KINDS[o.design.kind]}${o.design.kind==="yazi"?` · “${esc(o.design.text)}”`:""}</dd>
-        <dt>Konum</dt><dd>${pl.t} · ${o.design.cm} cm genişlik</dd>
-        <dt>Teknik</dt><dd>${esc(o.design.tech)}</dd>
-        <dt>Baskı rengi</dt><dd class="mono"><span class="swatch" style="background:${o.design.ink}"></span> ${o.design.ink.toUpperCase()}</dd>
-        ${o.design.fileName?`<dt>Dosya</dt><dd class="mono">📎 ${esc(o.design.fileName)}</dd>`:""}
-        <dt>Teslim</dt><dd>${fmtDate(o.due)}</dd>
-        ${showPrice?`<dt>Tutar</dt><dd class="mono">${fmtTL(total(o.qty)*p.price)}</dd>`:""}
-      </dl>
-      ${o.note?`<div class="notice" style="margin-top:14px;background:var(--warn-soft);color:var(--warn)">Not: ${esc(o.note)}</div>`:""}</div></div>
-      <div><h3 style="margin-bottom:10px">Süreç</h3><div class="timeline">${FLOW.map((s,i)=>{const done=i<cur||o.status==="teslim";return `<div class="tl ${done?"done":i===cur?"cur":""}"><div class="dot">${done?"✓":""}</div><div><b>${STATUS[s].t}</b><small>${histMap[s]||"Bekliyor"}</small></div></div>`}).join("")}</div></div>
-      ${shop&&o.status!=="teslim"?`<button class="btn primary" type="button" id="adv">${o.status==="hazir"?"Teslim edildi olarak işaretle":"Durumu ilerlet → "+STATUS[FLOW[cur+1]].t}</button>`:""}
-    </div></aside>`;
-  $("#scrim").onclick=closeLayer;$("#cls").onclick=closeLayer;
-  const a=$("#adv");if(a)a.onclick=()=>advance(id);
+// ---------------- Telefon: Diğer menüsü ----------------
+function viewMenu(v){
+  const items=[["musteriler","Müşteriler","musteri","Geçmiş siparişler, logolar, tekrar sipariş",0],["transferler","Şube transferi","transfer","Diğer şubeden ürün iste, gelen talepleri onayla",trBadge()]];
+  if(me.role==="admin")items.push(["kullanicilar","Kullanıcılar","users","Çalışan hesapları ve yetkiler",0]);
+  v.innerHTML=topbar("Diğer",esc(store().name))+`<div class="menu-grid">${items.map(([id,t,ic,s,b])=>`<a href="#${id}">${ICON[ic]}<b>${t}</b><span class="muted" style="font-size:13px">${s}</span>${b?`<span class="badge">${b}</span>`:""}</a>`).join("")}</div>`;
 }
 
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeLayer()});
